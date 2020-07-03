@@ -1,8 +1,7 @@
 # Multi-objective-2D-Embeddings
-The source code for MoDE:
+The source code for MoDE. For now the code seems to be working fine, e.g, take a look at the "test_MoDE.ipynb" notebook to observe the visualization for "small_stock" dataset.
 
 Things that needs to be done:
-- The current results looks strange. See the `test_MoDE.ipynb` notebook. The visualization for "small_stock" dataset looks strange
 - implementation of the distance, correlation, and order metrics.
 - Implementation of the compression algorithm.
 
