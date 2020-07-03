@@ -32,7 +32,6 @@ class MoDE:
         # make the correlation matrix symmetric
         cm_ub = cm_ub.T + cm_ub - np.eye(N)
         cm_lb = cm_lb.T + cm_lb - np.eye(N)
-        print("cm_lb: \n:", cm_lb)
 
         # create the KNN Graph
         # take the average distances to create the KNNG
@@ -53,8 +52,6 @@ class MoDE:
         # note that acos() is a decreasing function
         r_ub = np.arccos(c_lb)
         r_lb = np.arccos(c_ub)
-        print("c_ub \n:", c_ub)
-        print("r_ub \n:", r_ub)
         # create a columnar matrix of angles
         y_angle = np.concatenate((r_lb, r_ub), axis=0).T
         # Initialization of the GD algorithm
@@ -89,7 +86,7 @@ class MoDE:
         if self.verbose:
             print("end of GD algorithm")
         # generating the points in 2D
-        x_2d = np.concatenate((data_norms * np.cos(x), data_norms * np.sin(x)), axis=0).reshape((-1,2))
+        x_2d = np.concatenate((data_norms * np.cos(x), data_norms * np.sin(x)), axis=0).reshape((2,-1)).T
         return x_2d
 
     def incidence_matrix(self, A, score):
@@ -101,7 +98,14 @@ class MoDE:
         if len(score) != m:
             raise Exception("error: length of the score vector should be equal to the number of data points")
         # create the set of edges of the KNN graph, with nodes sorted according to score, i.e, (i, j) for i < j
-        edges = set([tuple(sorted(x, key=lambda y: score[y], reverse=True)) for x in zip(find(A)[0], find(A)[1])])
+        # edges = set([tuple(sorted(x, key=lambda y: score[y], reverse=True)) for x in zip(find(A)[0], find(A)[1])])
+        # temporary:
+        edges = []
+        for t in zip(find(A.T)[1], find(A.T)[0]):
+            if tuple(sorted(t)) not in edges:
+                edges.append(t)
+        edges = [tuple(sorted(x, key=lambda y: score[y])) for x in edges]
+
         row_ind = []
         col_ind = []
         values = []
