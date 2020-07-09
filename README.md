@@ -46,12 +46,12 @@ Below we will compare the Python implementation with the MATLAB one in terms of 
   </tr>
   <tr>
     <td>Big Stock</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>0.707</td>
+    <td>0.952</td>
+    <td>0.89</td>
+    <td>0.707</td>
+    <td>0.953</td>
+    <td>0.894</td>
   </tr>
 </tbody>
 </table>
