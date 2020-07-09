@@ -57,3 +57,27 @@ The table below shows the metrics accuracy results for Python and MATLAB impleme
 </tbody>
 </table>
 
+### Runtime comparison
+The table below shows the runtime comparison (in seconds) for different datasets. The experiments were done on a 2.5 GHz 14-Core Intel Xenon with 256 GB of RAM.
+
+<table>
+<thead>
+  <tr>
+    <th>Dataset</th>
+    <th>Python</th>
+    <th>MATLAB</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Small Stock<br></td>
+    <td>3.579</td>
+    <td>11.241</td>
+  </tr>
+  <tr>
+    <td>Big Stock</td>
+    <td>158.19</td>
+    <td>69.768</td>
+  </tr>
+</tbody>
+</table>
