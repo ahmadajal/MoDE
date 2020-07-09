@@ -71,8 +71,8 @@ The table below shows the runtime comparison (in seconds) for different datasets
 <tbody>
   <tr>
     <td>Small Stock<br></td>
-    <td>3.579</td>
     <td>11.241</td>
+    <td>3.579</td>
   </tr>
   <tr>
     <td>Big Stock</td>
