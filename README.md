@@ -17,7 +17,53 @@ Below we will compare the Python implementation with the MATLAB one in terms of 
 
 ### Distance, Correlation, and Order metrics
 
-| Dataset | Python | MATLAB |
-|   :---:      |     :---:      |          :---: |
-| metrics   | Rd | Rc | Ro     | Rd | Rc | Ro    |
-| git diff     | git diff       | git diff      |
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-c3ow">Dataset</th>
+    <th class="tg-c3ow" colspan="3">Python</th>
+    <th class="tg-baqh" colspan="3">MATLAB</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-c3ow"><span style="font-weight:bold">Metrics</span></td>
+    <td class="tg-c3ow"><span style="font-weight:bold">R_d</span></td>
+    <td class="tg-c3ow"><span style="font-weight:bold">R_o</span></td>
+    <td class="tg-0lax"><span style="font-weight:bold">R_c</span></td>
+    <td class="tg-0lax"><span style="font-weight:bold">R_d</span></td>
+    <td class="tg-0lax"><span style="font-weight:bold">R_o</span></td>
+    <td class="tg-0lax"><span style="font-weight:bold">R_c</span></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow"><span style="font-weight:400;font-style:normal">Small Stock</span></td>
+    <td class="tg-c3ow">0.708</td>
+    <td class="tg-c3ow">0.955</td>
+    <td class="tg-0lax">0.864</td>
+    <td class="tg-0lax">0.708</td>
+    <td class="tg-0lax">0.960</td>
+    <td class="tg-0lax">0.867</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Big Stock</td>
+    <td class="tg-c3ow"></td>
+    <td class="tg-c3ow"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+</tbody>
+</table>
+
+
