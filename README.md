@@ -37,7 +37,7 @@ Below we will compare the Python implementation with the MATLAB one in terms of 
 </thead>
 <tbody>
   <tr>
-    <td class="tg-c3ow"><span style="font-weight:bold">Metrics</span></td>
+    <td class="tg-c3ow"><span style="font-weight:bold">__Metrics__</span></td>
     <td class="tg-c3ow"><span style="font-weight:bold">R_d</span></td>
     <td class="tg-c3ow"><span style="font-weight:bold">R_o</span></td>
     <td class="tg-0lax"><span style="font-weight:bold">R_c</span></td>
