@@ -11,3 +11,8 @@ from MoDE import MoDE
 mode = MoDE(n_neighbor=20, max_iter=100000, tol=0.0001, verbose=True)
 x_2d = mode.fit_transform(data, score, dm, dm)
 ```
+
+## Benchmarks to compare Python implementation with the MATLAB one
+Below we will compare the Python implementation with the MATLAB one in terms of the metric values and the runtime of MoDE for different datasets.
+
+### Distance, Correlation, and Order metrics
