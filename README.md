@@ -17,44 +17,42 @@ Below we will compare the Python implementation with the MATLAB one in terms of 
 
 ### Distance, Correlation, and Order metrics
 
-
-<table class="tg">
+<table>
 <thead>
   <tr>
-    <th class="tg-c3ow">Dataset</th>
-    <th class="tg-c3ow" colspan="3">Python</th>
-    <th class="tg-baqh" colspan="3">MATLAB</th>
+    <th>Dataset</th>
+    <th colspan="3">Python</th>
+    <th colspan="3">MATLAB</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td class="tg-c3ow"><span style="font-weight:bold">Metrics</span></td>
-    <td class="tg-c3ow"><span style="font-weight:bold">R_d</span></td>
-    <td class="tg-c3ow"><span style="font-weight:bold">R_o</span></td>
-    <td class="tg-baqh"><span style="font-weight:bold">R_c</span></td>
-    <td class="tg-baqh"><span style="font-weight:bold">R_d</span></td>
-    <td class="tg-baqh"><span style="font-weight:bold">R_o</span></td>
-    <td class="tg-baqh"><span style="font-weight:bold">R_c</span></td>
+    <td>Metrics</td>
+    <td>R_d</td>
+    <td>R_o</td>
+    <td>R_c</td>
+    <td>R_d</td>
+    <td>R_o</td>
+    <td>R_c</td>
   </tr>
   <tr>
-    <td class="tg-c3ow"><span style="font-weight:400;font-style:normal">Small Stock</span></td>
-    <td class="tg-c3ow">0.708</td>
-    <td class="tg-c3ow">0.955</td>
-    <td class="tg-0lax">0.864</td>
-    <td class="tg-0lax">0.708</td>
-    <td class="tg-0lax">0.960</td>
-    <td class="tg-0lax">0.867</td>
+    <td>Small Stock</td>
+    <td>0.708</td>
+    <td>0.955</td>
+    <td>0.864</td>
+    <td>0.708</td>
+    <td>0.960</td>
+    <td>0.867</td>
   </tr>
   <tr>
-    <td class="tg-c3ow">Big Stock</td>
-    <td class="tg-c3ow"></td>
-    <td class="tg-c3ow"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
+    <td>Big Stock</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
 </tbody>
 </table>
-
 
