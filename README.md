@@ -16,3 +16,8 @@ x_2d = mode.fit_transform(data, score, dm, dm)
 Below we will compare the Python implementation with the MATLAB one in terms of the metric values and the runtime of MoDE for different datasets.
 
 ### Distance, Correlation, and Order metrics
+
+| Dataset | Python | MATLAB |
+|   :---:      |     :---:      |          :---: |
+| metrics   | Rd | Rc | Ro     | Rd | Rc | Ro    |
+| git diff     | git diff       | git diff      |
