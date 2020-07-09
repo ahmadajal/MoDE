@@ -31,10 +31,10 @@ Below we will compare the Python implementation with the MATLAB one in terms of 
     <td class="tg-c3ow"><span style="font-weight:bold">Metrics</span></td>
     <td class="tg-c3ow"><span style="font-weight:bold">R_d</span></td>
     <td class="tg-c3ow"><span style="font-weight:bold">R_o</span></td>
-    <td class="tg-0lax"><span style="font-weight:bold">R_c</span></td>
-    <td class="tg-0lax"><span style="font-weight:bold">R_d</span></td>
-    <td class="tg-0lax"><span style="font-weight:bold">R_o</span></td>
-    <td class="tg-0lax"><span style="font-weight:bold">R_c</span></td>
+    <td class="tg-baqh"><span style="font-weight:bold">R_c</span></td>
+    <td class="tg-baqh"><span style="font-weight:bold">R_d</span></td>
+    <td class="tg-baqh"><span style="font-weight:bold">R_o</span></td>
+    <td class="tg-baqh"><span style="font-weight:bold">R_c</span></td>
   </tr>
   <tr>
     <td class="tg-c3ow"><span style="font-weight:400;font-style:normal">Small Stock</span></td>
