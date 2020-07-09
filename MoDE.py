@@ -7,12 +7,27 @@ from sklearn.neighbors import NearestNeighbors
 class MoDE:
 
     def __init__(self, n_neighbor, max_iter, tol, verbose=False):
+        """
+
+        :param n_neighbor:
+        :param max_iter:
+        :param tol:
+        :param verbose:
+        """
         self.n_neighbor = n_neighbor
         self.max_iter = max_iter
         self.verbose = verbose
         self.tol = tol
 
     def fit_transform(self, data, score, dm_ub, dm_lb):
+        """
+
+        :param data:
+        :param score:
+        :param dm_ub:
+        :param dm_lb:
+        :return:
+        """
         N = data.shape[0]
         # check if distance matrices are symmetric
         if np.any(dm_ub.T != dm_ub) or np.any(dm_lb.T != dm_lb.T):
@@ -90,6 +105,12 @@ class MoDE:
         return x_2d
 
     def incidence_matrix(self, A, score):
+        """
+
+        :param A:
+        :param score:
+        :return:
+        """
         (m, n) = A.shape
         if m != n:
             raise Exception("error: adjacency matrix should be a square matrix")
@@ -98,13 +119,13 @@ class MoDE:
         if len(score) != m:
             raise Exception("error: length of the score vector should be equal to the number of data points")
         # create the set of edges of the KNN graph, with nodes sorted according to score, i.e, (i, j) for i < j
-        # edges = set([tuple(sorted(x, key=lambda y: score[y], reverse=True)) for x in zip(find(A)[0], find(A)[1])])
+        edges = set([tuple(sorted(x, key=lambda y: score[y])) for x in zip(find(A)[0], find(A)[1])])
         # temporary:
-        edges = []
-        for t in zip(find(A.T)[1], find(A.T)[0]):
-            if tuple(sorted(t)) not in edges:
-                edges.append(t)
-        edges = [tuple(sorted(x, key=lambda y: score[y])) for x in edges]
+        # edges = []
+        # for t in zip(find(A.T)[1], find(A.T)[0]):
+        #     if tuple(sorted(t)) not in edges:
+        #         edges.append(t)
+        # edges = [tuple(sorted(x, key=lambda y: score[y])) for x in edges]
 
         row_ind = []
         col_ind = []
@@ -117,6 +138,13 @@ class MoDE:
         return inc_mat
 
     def proj_l_u(self, x, l, u):
+        """
+
+        :param x:
+        :param l:
+        :param u:
+        :return:
+        """
         return np.minimum(np.maximum(x, l), u)
 
 
