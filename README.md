@@ -11,3 +11,49 @@ from MoDE import MoDE
 mode = MoDE(n_neighbor=20, max_iter=100000, tol=0.0001, verbose=True)
 x_2d = mode.fit_transform(data, score, dm, dm)
 ```
+
+## Benchmarks to compare Python implementation with the MATLAB one
+Below we will compare the Python implementation with the MATLAB one in terms of the metric values and the runtime of MoDE for different datasets.
+
+### Distance, Correlation, and Order metrics
+The table below shows the metrics accuracy results for Python and MATLAB implementation of MoDE.
+
+<table>
+<thead>
+  <tr>
+    <th>Dataset</th>
+    <th colspan="3">Python</th>
+    <th colspan="3">MATLAB</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Metrics</td>
+    <td>R_d</td>
+    <td>R_o</td>
+    <td>R_c</td>
+    <td>R_d</td>
+    <td>R_o</td>
+    <td>R_c</td>
+  </tr>
+  <tr>
+    <td>Small Stock</td>
+    <td>0.708</td>
+    <td>0.955</td>
+    <td>0.864</td>
+    <td>0.708</td>
+    <td>0.960</td>
+    <td>0.867</td>
+  </tr>
+  <tr>
+    <td>Big Stock</td>
+    <td>0.707</td>
+    <td>0.952</td>
+    <td>0.89</td>
+    <td>0.707</td>
+    <td>0.953</td>
+    <td>0.894</td>
+  </tr>
+</tbody>
+</table>
+
