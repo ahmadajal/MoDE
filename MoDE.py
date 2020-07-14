@@ -34,19 +34,24 @@ class MoDE:
             raise Exception("distance matrices should be symmetric")
         # compute the norm of each point
         data_norms = [np.linalg.norm(data[i]) for i in range(N)]
-        # compute the correlation lower and upper bound
-        cm_ub = np.eye(N)
-        cm_lb = np.eye(N)
-        for i in range(N):
-            for j in range(i+1, N):
-                if data_norms[i] * data_norms[j] == 0:
-                    raise Exception("error: remove zero-norm points")
-                cm_ub[i, j] = (data_norms[i] ** 2 + data_norms[j] ** 2 - dm_lb[i, j] ** 2) / (2 * data_norms[i] * data_norms[j])
-                cm_lb[i, j] = (data_norms[i] ** 2 + data_norms[j] ** 2 - dm_ub[i, j] ** 2) / (2 * data_norms[i] * data_norms[j])
-
-        # make the correlation matrix symmetric
-        cm_ub = cm_ub.T + cm_ub - np.eye(N)
-        cm_lb = cm_lb.T + cm_lb - np.eye(N)
+        # compute the correlation lower and upper bound                                                 
+        # cm_ub = np.eye(N)
+        # cm_lb = np.eye(N)
+        # for i in range(N):
+        #     for j in range(i+1, N):
+        #         if data_norms[i] * data_norms[j] == 0:
+        #             raise Exception("error: remove zero-norm points")
+        #         cm_ub[i, j] = (data_norms[i] ** 2 + data_norms[j] ** 2 - dm_lb[i, j] ** 2) / (2 * data_norms[i] * data_norms[j])
+        #         cm_lb[i, j] = (data_norms[i] ** 2 + data_norms[j] ** 2 - dm_ub[i, j] ** 2) / (2 * data_norms[i] * data_norms[j])
+        #
+        # # make the correlation matrix symmetric
+        # cm_ub = cm_ub.T + cm_ub - np.eye(N)
+        # cm_lb = cm_lb.T + cm_lb - np.eye(N)3
+        # alternative correlation computation
+        data_norms_i = np.repeat(np.array(data_norms), repeats=N).reshape((N, N)).T
+        data_norms_j = np.repeat(np.array(data_norms), repeats=N).reshape((N, N))
+        cm_ub = (data_norms_i ** 2 + data_norms_j ** 2 - dm_lb ** 2) / (2 * data_norms_i * data_norms_j)
+        cm_lb = (data_norms_i ** 2 + data_norms_j ** 2 - dm_ub ** 2) / (2 * data_norms_i * data_norms_j)
 
         # create the KNN Graph
         # take the average distances to create the KNNG
