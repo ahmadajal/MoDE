@@ -3,6 +3,7 @@ from scipy.io import loadmat
 import matplotlib.pyplot as plt
 import time
 import pickle
+import sys
 from MoDE import MoDE
 from sklearn.manifold import TSNE, Isomap, MDS
 from sklearn.preprocessing import StandardScaler
@@ -10,12 +11,18 @@ from sklearn.metrics import pairwise_distances
 from metrics import distance_metric, correlation_metric, order_preservation
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('--data_path', action="store")
+parser.add_argument('--data_path', action="store", default="small_stock.mat")
 parser.add_argument('--normalize', action="store", default="No")
 args = parser.parse_args()
 
 data = loadmat("data/" + args.data_path)["StockData"]
 score = loadmat("data/" + args.data_path)["Score"]
+
+# save the ouput log file
+LOG_PATH = "logs/"
+sys.stdout = open(LOG_PATH + "log_" + args.data_path.split(".")[0] + ".txt", 'w')
+# empty the buffer
+sys.stdout.flush()
 
 if args.normalize == "standard":
     scaler = StandardScaler()
@@ -32,6 +39,8 @@ else:
     raise Exception("error: wrong normalization argument")
 
 print("data shape: ", data.shape)
+# empty the buffer
+sys.stdout.flush()
 
 dm = pairwise_distances(data, n_jobs=-1)
 # temporary: for now limit the decimals
