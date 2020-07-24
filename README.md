@@ -104,19 +104,19 @@ The table below shows the runtime comparison (in seconds) for different datasets
     <td>heart beat</td>
     <td>14545</td>
     <td>1529.77</td>
-    <td></td>
+    <td>837.88</td>
   </tr>
   <tr>
     <td>madelon</td>
     <td>2080</td>
     <td>147.25</td>
-    <td></td>
+    <td>65.75</td>
   </tr>
   <tr>
     <td>MNIST (subset)</td>
     <td>2000</td>
     <td>96.02</td>
-    <td></td>
+    <td>23.89</td>
   </tr>
 </tbody>
 </table>
