@@ -33,23 +33,12 @@ class MoDE:
         if np.any(dm_ub.T != dm_ub) or np.any(dm_lb.T != dm_lb.T):
             raise Exception("distance matrices should be symmetric")
         # compute the norm of each point
-        data_norms = [np.linalg.norm(data[i]) for i in range(N)]
-        # compute the correlation lower and upper bound                                                 
-        # cm_ub = np.eye(N)
-        # cm_lb = np.eye(N)
-        # for i in range(N):
-        #     for j in range(i+1, N):
-        #         if data_norms[i] * data_norms[j] == 0:
-        #             raise Exception("error: remove zero-norm points")
-        #         cm_ub[i, j] = (data_norms[i] ** 2 + data_norms[j] ** 2 - dm_lb[i, j] ** 2) / (2 * data_norms[i] * data_norms[j])
-        #         cm_lb[i, j] = (data_norms[i] ** 2 + data_norms[j] ** 2 - dm_ub[i, j] ** 2) / (2 * data_norms[i] * data_norms[j])
-        #
-        # # make the correlation matrix symmetric
-        # cm_ub = cm_ub.T + cm_ub - np.eye(N)
-        # cm_lb = cm_lb.T + cm_lb - np.eye(N)3
-        # alternative correlation computation
-        data_norms_i = np.repeat(np.array(data_norms), repeats=N).reshape((N, N)).T
-        data_norms_j = np.repeat(np.array(data_norms), repeats=N).reshape((N, N))
+        data_norms = np.linalg.norm(data, axis=1)
+        if 0 in data_norms:
+            raise Exception("error: remove zero-norm points")
+        # compute the correlation lower and upper bound
+        data_norms_i = np.repeat(data_norms, repeats=N).reshape((N, N)).T
+        data_norms_j = np.repeat(data_norms, repeats=N).reshape((N, N))
         cm_ub = (data_norms_i ** 2 + data_norms_j ** 2 - dm_lb ** 2) / (2 * data_norms_i * data_norms_j)
         cm_lb = (data_norms_i ** 2 + data_norms_j ** 2 - dm_ub ** 2) / (2 * data_norms_i * data_norms_j)
 
@@ -64,16 +53,13 @@ class MoDE:
         # construct the incidence matrix
         inc_mat = self.incidence_matrix(A, score)
         # Bounds on correlation (vectors of length = # edges)
-        c_ub = np.array(
-            [cm_ub[inc_mat[i].nonzero()[1][0], inc_mat[i].nonzero()[1][1]] for i in range(inc_mat.shape[0])])
-        c_lb = np.array(
-            [cm_lb[inc_mat[i].nonzero()[1][0], inc_mat[i].nonzero()[1][1]] for i in range(inc_mat.shape[0])])
+        node_indices = inc_mat.nonzero()[1].reshape((-1, 2))
+        c_ub = cm_ub[node_indices[:, 0], node_indices[:, 1]]
+        c_lb = cm_lb[node_indices[:, 0], node_indices[:, 1]]
         # Bounds on angular difference.
         # note that acos() is a decreasing function
         r_ub = np.arccos(c_lb)
         r_lb = np.arccos(c_ub)
-        # create a columnar matrix of angles
-        y_angle = np.concatenate((r_lb, r_ub), axis=0).T
         # Initialization of the GD algorithm
         # first we find the index of the point with the lowest score and remove it from incidence matrix
         min_ind = np.argmin(score.squeeze())
@@ -106,7 +92,7 @@ class MoDE:
         if self.verbose:
             print("end of GD algorithm")
         # generating the points in 2D
-        x_2d = np.concatenate((data_norms * np.cos(x), data_norms * np.sin(x)), axis=0).reshape((2,-1)).T
+        x_2d = np.concatenate((data_norms * np.cos(x), data_norms * np.sin(x)), axis=0).reshape((2, -1)).T
         return x_2d
 
     def incidence_matrix(self, A, score):
