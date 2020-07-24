@@ -92,13 +92,13 @@ The table below shows the runtime comparison (in seconds) for different datasets
     <td>cifar-10 (subset)</td>
     <td>8000</td>
     <td>838.81</td>
-    <td></td>
+    <td>409.52</td>
   </tr>
   <tr>
     <td>EEG</td>
     <td>11853</td>
     <td>2594.15</td>
-    <td></td>
+    <td>583.323</td>
   </tr>
   <tr>
     <td>heart beat</td>
