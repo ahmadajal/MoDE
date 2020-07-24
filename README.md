@@ -73,20 +73,20 @@ The table below shows the runtime comparison (in seconds) for different datasets
   <tr>
     <td>Small Stock<br></td>
     <td>436</td>
-    <td>11.241</td>
+    <td>8.14</td>
     <td>3.579</td>
   </tr>
   <tr>
     <td>Big Stock</td>
     <td>2256</td>
-    <td>158.19</td>
+    <td>133.5</td>
     <td>69.768</td>
   </tr>
   <tr>
     <td>Breast Cancer</td>
     <td>569</td>
-    <td></td>
     <td>11.1</td>
+    <td>4.56</td>
   </tr>
   <tr>
     <td>cifar-10 (subset)</td>
