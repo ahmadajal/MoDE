@@ -15,8 +15,8 @@ parser.add_argument('--data_path', action="store", default="small_stock.mat")
 parser.add_argument('--normalize', action="store", default="No")
 args = parser.parse_args()
 
-data = loadmat("data/" + args.data_path)["StockData"]
-score = loadmat("data/" + args.data_path)["Score"]
+data = loadmat(args.data_path)["StockData"]
+score = loadmat(args.data_path)["Score"]
 
 # save the ouput log file
 LOG_PATH = "logs/"
