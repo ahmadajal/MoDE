@@ -20,7 +20,7 @@ score = loadmat(args.data_path)["Score"]
 
 # save the ouput log file
 LOG_PATH = "logs/"
-sys.stdout = open(LOG_PATH + "log_" + args.data_path.split(".")[0] + ".txt", 'w')
+sys.stdout = open(LOG_PATH + "log_" + args.data_path.split("/")[-1].split(".")[0] + ".txt", 'w')
 # empty the buffer
 sys.stdout.flush()
 
