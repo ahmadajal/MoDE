@@ -1,21 +1,25 @@
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 from scipy.sparse import identity, find, csr_matrix
+from scipy.io import loadmat
 from MoDE import MoDE
 import scipy
 
-x = np.random.random((5,2))
-neigh = NearestNeighbors(n_neighbors=2)
-neigh.fit(x)
 
-a = neigh.kneighbors_graph(x, n_neighbors=3) - identity(len(x), format="csr")
 
-print(a.toarray())
+data = loadmat("data/small_stock.mat")["StockData"]
+score = loadmat("data/small_stock.mat")["Score"]
 
-score = [1,2,0,-1,3]
-print(set([tuple(sorted(x, key=lambda y: score[y], reverse=True)) for x in zip(find(a)[0], find(a)[1])]))
+#normalize
+m = np.mean(data, axis=1)
+data = data - m.reshape((-1,1))
 
-m = MoDE(5, 1000, 0.0001)
-inc_mat = m.incidence_matrix(a, score)
+s = np.max(data, axis=1) - np.min(data, axis=1)
+data = data / s.reshape((-1,1))
 
-print((np.dot(inc_mat.T, inc_mat)).diagonal())
+print(data.shape)
+from waterfilling_compression import WaterfillingCompression
+comp = WaterfillingCompression()
+dm_ub, dm_lb = comp.compute_distance_bounds(data)
+print(dm_ub[0])
+
