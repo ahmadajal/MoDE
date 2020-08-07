@@ -1,15 +1,21 @@
 # Multi-objective-2D-Embeddings
 The source code for MoDE. For now the code seems to be working fine, e.g, take a look at the "test_MoDE.ipynb" notebook to observe the visualization for "small_stock" dataset.
 
-Things that needs to be done:
-- implementation of the distance, correlation, and order metrics.
-- Implementation of the compression algorithm.
 
 ## Usage
 ```
 from MoDE import MoDE
 mode = MoDE(n_neighbor=20, max_iter=100000, tol=0.0001, verbose=True)
 x_2d = mode.fit_transform(data, score, dm, dm)
+```
+
+
+## Waterfilling algorithm
+Now the waterfilling algorithm for compression is implemented as well. In the following code snippet you can see an example of how to use it.
+```
+from waterfilling_compression import WaterfillingCompression
+comp = WaterfillingCompression(num_coeffs=4, coeffs_to_keep='optimal')
+dm_ub, dm_lb = comp.compute_distance_bounds(data)
 ```
 
 ## Benchmarks to compare Python implementation with the MATLAB one
