@@ -64,6 +64,7 @@ The table below shows the runtime comparison (in seconds) for different datasets
 <thead>
   <tr>
     <th>Dataset</th>
+    <th># points</th>
     <th>Python</th>
     <th>MATLAB</th>
   </tr>
@@ -71,13 +72,51 @@ The table below shows the runtime comparison (in seconds) for different datasets
 <tbody>
   <tr>
     <td>Small Stock<br></td>
-    <td>11.241</td>
+    <td>436</td>
+    <td>8.14</td>
     <td>3.579</td>
   </tr>
   <tr>
     <td>Big Stock</td>
-    <td>158.19</td>
+    <td>2256</td>
+    <td>133.5</td>
     <td>69.768</td>
+  </tr>
+  <tr>
+    <td>Breast Cancer</td>
+    <td>569</td>
+    <td>11.1</td>
+    <td>4.56</td>
+  </tr>
+  <tr>
+    <td>cifar-10 (subset)</td>
+    <td>8000</td>
+    <td>838.81</td>
+    <td>409.52</td>
+  </tr>
+  <tr>
+    <td>EEG</td>
+    <td>11853</td>
+    <td>2594.15</td>
+    <td>583.323</td>
+  </tr>
+  <tr>
+    <td>heart beat</td>
+    <td>14545</td>
+    <td>1529.77</td>
+    <td>837.88</td>
+  </tr>
+  <tr>
+    <td>madelon</td>
+    <td>2080</td>
+    <td>147.25</td>
+    <td>65.75</td>
+  </tr>
+  <tr>
+    <td>MNIST (subset)</td>
+    <td>2000</td>
+    <td>96.02</td>
+    <td>23.89</td>
   </tr>
 </tbody>
 </table>
