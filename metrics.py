@@ -7,12 +7,17 @@ from sklearn.metrics import pairwise_distances
 
 def distance_metric(data, x_2d, dm, n_neighbor):
     """
+    Compute the distance preservation metric for the embedded data. The range of the output values are between 0 and 1,
+    with larger values showing that the projected dataset in the embedding space has a higher fidelity in preserving
+    pair-wise distances. This metric considers the preservation of pair-wise distances only among the `n_neighbor`
+    nearest neighbors of each data point. More information on this metric can be found in the paper: "An Interpretable
+    Data Embedding under Uncertain Distance Information"
 
-    :param data:
-    :param x_2d:
-    :param dm:
-    :param n_neighbor:
-    :return:
+    :param data: array of shape (n_samples, n_features), input dataset
+    :param x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
+    :param dm: array of shape (n_samples, n_samples), exact pair-wise distances matrix
+    :param n_neighbor: int, number of nearest neighbors used for computing the embeddings
+    :return: R_d, distance preservation metric value
     """
     N = data.shape[0]
     # dm is in general the average of dm_ub and dm_lb and hence could be potentially different from the original distance matrix
@@ -33,12 +38,17 @@ def distance_metric(data, x_2d, dm, n_neighbor):
 
 def correlation_metric(data, x_2d, dm, n_neighbor):
     """
+    Compute the correlation preservation metric for the embedded data. The range of the output values are between -1 and 1,
+    with larger values showing that the projected dataset in the embedding space has a higher fidelity in preserving
+    pair-wise correlations. This metric considers the preservation of pair-wise correlations only among the `n_neighbor`
+    nearest neighbors of each data point. More information on this metric can be found in the paper: "An Interpretable
+    Data Embedding under Uncertain Distance Information"
 
-    :param data:
-    :param x_2d:
-    :param dm:
-    :param n_neighbor:
-    :return:
+    :param data: array of shape (n_samples, n_features), input dataset
+    :param x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
+    :param dm: array of shape (n_samples, n_samples), exact pair-wise distances matrix
+    :param n_neighbor: int, number of nearest neighbors used for computing the embeddings
+    :return: R_c, correlation preservation metric value
     """
     N = data.shape[0]
     # creating the adjacency matrix for KNNG (from the average distance matrix "dm")
@@ -60,12 +70,19 @@ def correlation_metric(data, x_2d, dm, n_neighbor):
 
 def order_preservation(x_2d, dm, n_neighbor, score):
     """
+    Compute the order preservation metric for the embedded data. The range of the output values are between 0 and 1,
+    with larger values showing that the projected dataset in the embedding space has a higher fidelity in preserving
+    orders of the data points (data points with higher ranks are places in higher angles in 2D space). This metric
+    considers the preservation of orders only among the `n_neighbor` nearest neighbors of each data point. This metric
+    should be used only for MoDE embeddings.
+    More information on this metric can be found in the paper: "An Interpretable
+    Data Embedding under Uncertain Distance Information"
 
-    :param x_2d:
-    :param dm:
-    :param n_neighbor:
-    :param score:
-    :return:
+    :param x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
+    :param dm: array of shape (n_samples, n_samples), exact pair-wise distances matrix
+    :param n_neighbor: int, number of nearest neighbors used for computing the embeddings
+    :param score: Score (ranking) value for each data point
+    :return: R_o, order preservation metric value
     """
     N = x_2d.shape[0]
     # creating the adjacency matrix for KNNG (from the average distance matrix "dm")
@@ -88,6 +105,15 @@ def cart2pol(x, y):
 
 
 def order_check(x1, x2, score_x1, score_x2):
+    """
+    check if two data points in the 2D embedded space are placed in the correct order. Data points with higher score
+    should be placed in higher angles in polar coordinates (for MoDE embeddings).
+    :param x1: array, first data point in the 2D embedded space
+    :param x2: array, second data point in the 2D embedded space
+    :param score_x1: int, score of the first data point
+    :param score_x2: int, score of the second data point
+    :return: 1 if the order is preserved, 0 otherwise
+    """
     _, theta1 = cart2pol(x1[0], x1[1])
     _, theta2 = cart2pol(x2[0], x2[1])
     # check if the order is not preserved

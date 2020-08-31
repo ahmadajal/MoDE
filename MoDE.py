@@ -8,11 +8,17 @@ class MoDE:
 
     def __init__(self, n_neighbor, max_iter, tol, verbose=False):
         """
+        Implementation of the paper "An Interpretable Data Embedding under Uncertain Distance Information"
+        <link_to_the_paper>
+        This class computes the Multi-objective 2D Embeddings (MoDE) for the input dataset.
 
-        :param n_neighbor:
-        :param max_iter:
-        :param tol:
-        :param verbose:
+        :param n_neighbor: int, Number of nearest neighbors used to create the data graph. This parameter is similar to
+        the number of nearest neighbors used in other manifold learning algorithms (e.g, ISOMAP).
+        :param max_iter: int, Maximum number of iterations for gradient descent to solve the optimization problem
+        :param tol: float, Tolerance value used as a stop condition for the gradient descent algorithm. GD stops either
+        if the it reaches the maximum number of iterations or the error becomes smaller than this tolerance value.
+        :param verbose: (Default = False) If true, the progress of the gradient descent algorithm will be printed while
+        the embeddings are being computed.
         """
         self.n_neighbor = n_neighbor
         self.max_iter = max_iter
@@ -21,12 +27,21 @@ class MoDE:
 
     def fit_transform(self, data, score, dm_ub, dm_lb):
         """
+        Fit data into an embedded space and return the transformed 2D output
 
-        :param data:
-        :param score:
-        :param dm_ub:
-        :param dm_lb:
-        :return:
+        :param data: array of shape (n_samples, n_features), i.e, it should contain a sample per row
+        :param score: array of shape (n_samples,) that contain the score (ranking) for each sample. Some datasets have
+        ranked data points by nature, e.g, market value of each stock in a dataset of stocks, rank of each university
+        in a data set of universities, etc. In case such scores are not available in a dataset, random scores can be
+        used
+        :param dm_ub: array of shape (n_samples, n_samples) that contain the upper-bound on the mutual distance of data
+        samples from each other. In some cases, like data compression, exact pair-wise distances between data points
+        are not available. In such cases ranges of upper and lower bound distances between data points can be computed.
+        MoDE can operate on such distance bounds. In the case where exact distance information are available, just pass
+        the exact distance matrix to both `dm_ub` and `dm_lb`.
+        :param dm_lb: array of shape (n_samples, n_samples) that contain the lower-bound on the mutual distance of data
+        samples from each other.
+        :return: x_2d: array of shape (n_samples, 2). Embedding of the training data in 2D space.
         """
         N = data.shape[0]
         # check if distance matrices are symmetric
@@ -97,10 +112,13 @@ class MoDE:
 
     def incidence_matrix(self, A, score):
         """
+        Creates the sparse incidence matrix of a graph from its adjacency matrix. More information about incidence
+        matrix could be found in the paper
 
-        :param A:
-        :param score:
-        :return:
+        :param A: array of shape (n_nodes, n_nodes) Graph adjacency matrix (created from the k-nearest neighbors
+        data graph). Here n_nodes = n_samples.
+        :param score: Score (ranking) value for each data point
+        :return: inc_mat: array of shape (n_edges, n_nodes), sparse incidence matrix of the graph
         """
         (m, n) = A.shape
         if m != n:
@@ -130,11 +148,12 @@ class MoDE:
 
     def proj_l_u(self, x, l, u):
         """
+        project the values of an array into the bound [l, u] (element-wise)
 
-        :param x:
-        :param l:
-        :param u:
-        :return:
+        :param x: input array
+        :param l: array of lower bounds
+        :param u: array of upper bounds
+        :return: projected output array
         """
         return np.minimum(np.maximum(x, l), u)
 
