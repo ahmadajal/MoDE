@@ -1,5 +1,5 @@
-# Multi-objective-2D-Embeddings
-The source code for MoDE. For now the code seems to be working fine, e.g, take a look at the "test_MoDE.ipynb" notebook to observe the visualization for "small_stock" dataset.
+# Multi-objective-2D-Embeddings (MoDE)
+This repository contains the code and results for the paper "An Interpretable Data Embedding under Uncertain Distance Information". This paper presents a data embedding method called Multi-objective 2D Embedding (__MoDE__) that can successfully capture, with high fidelity, multiple facets of the data relationships: correlations, distances, and orders or importance rankings.
 
 
 ## Usage
