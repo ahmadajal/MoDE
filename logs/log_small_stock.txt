@@ -1,9 +1,0 @@
-data shape:  (436, 128)
-0.005747126436781609
-Start of Gradient Descent algorithm
-0 out of 100000 iterations has passed
-10000 out of 100000 iterations has passed
-20000 out of 100000 iterations has passed
-GD stopped after 26000 iteration
-end of GD algorithm
-time:  15.535456657409668
