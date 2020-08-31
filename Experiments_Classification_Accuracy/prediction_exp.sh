@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# python prediction_experiment.py --mode_path breast_cancer_train_mode.mat --DM_path breast_cancer_train_DM.mat --train_mat_path breast_cancer_train.mat --test_mat_path breast_cancer_test.mat --ptsne_path breast_cancer_train_ptsne.mat breast_cancer_test_ptsne.mat --perplexity 6.5
+# python prediction_experiment.py --mode_path hb_train_mode.mat --DM_path hb_train_DM.mat --train_mat_path hb_train.mat --test_mat_path hb_test.mat --ptsne_path hb_train_ptsne.mat hb_test_ptsne.mat --perplexity 6.5
+# python prediction_experiment.py --mode_path madelon_train_mode.mat --DM_path madelon_train_DM.mat --train_mat_path madelon_train.mat  --test_mat_path madelon_test.mat --ptsne_path madelon_train_ptsne.mat madelon_test_ptsne.mat --perplexity 6.5
+# python prediction_experiment.py --mode_path eeg_train_mode.mat --DM_path eeg_train_DM.mat --train_mat_path eeg_train.mat  --test_mat_path eeg_test.mat --ptsne_path eeg_train_ptsne.mat eeg_test_ptsne.mat --perplexity 6.5
+# python prediction_experiment.py --mode_path wine_train_mode.mat --DM_path wine_train_DM.mat --train_mat_path wine_train.mat  --test_mat_path wine_test.mat --ptsne_path wine_train_ptsne.mat wine_test_ptsne.mat --perplexity 6.5
+# python prediction_experiment.py --mode_path phishing_train_mode.mat --DM_path phishing_train_DM.mat --train_mat_path phishing_train.mat  --test_mat_path phishing_test.mat --ptsne_path phishing_train_ptsne.mat phishing_test_ptsne.mat --perplexity 6.5
+# python prediction_experiment.py --mode_path cifar_train_mode.mat --DM_path cifar_train_DM.mat --train_mat_path cifar_train.mat  --test_mat_path cifar_test.mat --ptsne_path cifar_train_ptsne.mat cifar_test_ptsne.mat --perplexity 6.5
+python prediction_experiment.py --mode_path arrow_train_mode.mat --DM_path arrow_train_DM.mat --train_mat_path arrow_train.mat  --test_mat_path arrow_test.mat --ptsne_path arrow_train_ptsne.mat arrow_test_ptsne.mat --perplexity 6.5
+python prediction_experiment.py --mode_path wafer_train_mode.mat --DM_path wafer_train_DM.mat --train_mat_path wafer_train.mat  --test_mat_path wafer_test.mat --ptsne_path wafer_train_ptsne.mat wafer_test_ptsne.mat --perplexity 6.5
