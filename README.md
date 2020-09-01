@@ -9,4 +9,6 @@ Below you can see the visulaization of MoDE embeddings for a dataset of stocks w
 
 ![Alt text](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True)
 
-__Important note: please make sure that you cite our paper if you want to use the code in this repository.__
+If you find this code useful or use it in a publication or research, please cite it as follows:
+
+N. Freris, M. Vlachos, A. Ajalloeian: "An Interpretable Data Embeddingunder Uncertain Distance Information", Proc. of ICDM 2020
