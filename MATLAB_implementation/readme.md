@@ -1,4 +1,4 @@
-### MATLAB implementation for MoDE:
+# MATLAB implementation for MoDE:
 This folder contains the MATLAB code used to generate the MoDE and the baseline embeddings (ISOMAP, MDS, and t-SNE). For the baseline embeddings, implementations from standard toolboxes were used. Some of the important scripts and folders in this folder:
 
 - runme.m: By running this script you can generate 2D embeddigns for MoDE and the baseline methods. This script also generates the 2D visualization of these methods. By running this script you can generate a result similar to Figure 3 in the paper.
