@@ -10,7 +10,7 @@ from MoDE import MoDE
 mode = MoDE(n_neighbor=20, max_iter=100000, tol=0.0001, verbose=True)
 x_2d = mode.fit_transform(data, score, dm_ub, dm_lb)
 ```
-Once the MoDE embeddings are trained, you can measure the fidelity of the embedded dataset to the original dataset in terms of preserving distances, correlations and orders. To do so you can use the metric functions available in "metrics.py".
+Once the MoDE embeddings are trained, you can measure the fidelity of the embedded dataset to the original dataset in terms of preserving distances, correlations and orders. To do so, you can use the metric functions available in "metrics.py".
 ```
 from metrics import distance_metric, correlation_metric, order_preservation
 dm_avg = (dm_ub+dm_lb) / 2
