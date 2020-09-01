@@ -21,8 +21,8 @@ Below you can see the visulaization of MoDE embeddings for a dataset of stocks w
 
 ![Alt text](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True)
 
-## Waterfilling algorithm
-Now the waterfilling algorithm for compression is implemented as well. In the following code snippet you can see an example of how to use it.
+## Waterfilling algorithm (for data compression)
+With waterfilling algorithm you can find tight lower and upper bound on the pair-wise distances between data points that have been compressed using orthonormal transforms, e.g, fourier transform. Using the `WaterfillingCompression` class you can compress the data by keeping only a small portion of fourier transform coefficients. Then by calling the `compute_distance_bounds` method you are able to compute tight bounds on the lower and upper bound on distances.
 ```
 from waterfilling_compression import WaterfillingCompression
 comp = WaterfillingCompression(num_coeffs=4, coeffs_to_keep='optimal')
