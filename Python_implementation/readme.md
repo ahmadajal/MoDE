@@ -20,10 +20,10 @@ R_o = order_preservation(x_2d, dm_avg, n_neighbor=20, score=score.squeeze())
 ```
 
 ## Waterfilling algorithm (for data compression)
-With waterfilling algorithm you can find tight lower and upper bound on the pair-wise distances between data points that have been compressed using orthonormal 
+With waterfilling algorithm you can find tight lower and upper bounds on the pair-wise distances between data points that have been compressed using orthonormal 
 transforms, e.g, fourier transform. Using the `WaterfillingCompression` class you can compress the data by keeping only a small portion of fourier transform 
-coefficients. Then by calling the `compute_distance_bounds` method you are able to compute tight bounds on the lower and upper bound on distances. For more information 
-on waterfilling algorithm check out the paper: https://arxiv.org/pdf/1405.5873.pdf
+coefficients. Then by calling the `compute_distance_bounds` method you are able to compute tight lower and upper bounds on pair-wise distances. For more information 
+on the waterfilling algorithm check out the paper: https://arxiv.org/pdf/1405.5873.pdf
 ```
 from waterfilling_compression import WaterfillingCompression
 comp = WaterfillingCompression(num_coeffs=4, coeffs_to_keep='optimal')
