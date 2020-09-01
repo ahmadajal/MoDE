@@ -1,5 +1,4 @@
 # Benchmarking the Python and MATLAB implementation
-## Benchmarks to compare Python implementation with the MATLAB one
 Below we will compare the Python implementation with the MATLAB one in terms of the metric values and the runtime of MoDE for different datasets.
 
 ### Distance, Correlation, and Order metrics
