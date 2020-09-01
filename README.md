@@ -9,7 +9,7 @@ This repository contains both the Python and MATLAB implementations of MoDE. __N
 
 Below you can see the visulaization of MoDE embeddings for a dataset of stocks with 2252 samples and 1024 features. The market capitalization of each stock was used as score. You can also see the values of distance, correlation, and order preservation metrics on top of the plot.
 
-![Alt text](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True =250x)
+![Alt text](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True)
 
 If you find this code useful or use it in a publication or research, please cite it as follows:
 
