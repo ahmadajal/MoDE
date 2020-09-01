@@ -19,7 +19,7 @@ R_o = order_preservation(x_2d, dm_avg, n_neighbor=20, score=score.squeeze())
 ```
 Below you can see the visulaization of MoDE embeddings for a dataset of stocks with 2252 samples and 1024 features. The market capitalization of each stock was used as score. You can also see the values of distance, correlation, and order metrics on top of the plot.
 
-![Alt text](imges/mode.png)
+![Alt text](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True)
 
 ## Waterfilling algorithm
 Now the waterfilling algorithm for compression is implemented as well. In the following code snippet you can see an example of how to use it.
