@@ -9,8 +9,8 @@ class WaterfillingCompression:
         paper: "Compressive mining:fast and optimal data mining in the compressed domain",
         link to the paper: https://arxiv.org/pdf/1405.5873.pdf
 
-        :param num_coeffs: Number of coefficients (of the fourier transform) to keep upon compression
-        :param coeffs_to_keep: Which coefficient to keep upon compression. first: keep only the first `num_coeffs`
+        num_coeffs: Number of coefficients (of the fourier transform) to keep upon compression
+        coeffs_to_keep: Which coefficient to keep upon compression. first: keep only the first `num_coeffs`
         coefficients of the fourier transform of the input. best or optimal: keep the largest `num_coeffs` coefficients
         of the fourier transform of the input.
         """
@@ -22,7 +22,7 @@ class WaterfillingCompression:
         """
         Compute the upper and lower distance bounds for the whole dataset.
 
-        :param data: array of shape (n_samples, n_features). Input dataset.
+        data: array of shape (n_samples, n_features). Input dataset.
         :return: dm_ub, dm_lb: arrays of shape (n_samples, n_samples), upper and lower bound distance matrices respectively
         """
         (N, dim) = np.shape(data)
@@ -62,10 +62,10 @@ class WaterfillingCompression:
     def dist_cc(self, x1, x2, num_coeffs, coeffs_to_keep):
         """
         compute the upper and lower distance bounds between two single data points
-        :param x1: array, complex conjugate of the fourier transform of the 1st input
-        :param x2: array, complex conjugate of the fourier transform of the 2nd input
-        :param num_coeffs: Number of coefficients (of the fourier transform) to keep upon compression
-        :param coeffs_to_keep: which coefficients to keep (first, best, optimal)
+        x1: array, complex conjugate of the fourier transform of the 1st input
+        x2: array, complex conjugate of the fourier transform of the 2nd input
+        num_coeffs: Number of coefficients (of the fourier transform) to keep upon compression
+        coeffs_to_keep: which coefficients to keep (first, best, optimal)
         :return: ub, lb: floats, upper and lower bounds on the distance respectively
         """
         N = len(x1)

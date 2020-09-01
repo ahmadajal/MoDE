@@ -13,10 +13,12 @@ def distance_metric(data, x_2d, dm, n_neighbor):
     nearest neighbors of each data point. More information on this metric can be found in the paper: "An Interpretable
     Data Embedding under Uncertain Distance Information"
 
-    :param data: array of shape (n_samples, n_features), input dataset
-    :param x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
-    :param dm: array of shape (n_samples, n_samples), exact pair-wise distances matrix
-    :param n_neighbor: int, number of nearest neighbors used for computing the embeddings
+    data: array of shape (n_samples, n_features), input dataset
+    x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
+    dm: array of shape (n_samples, n_samples), average of upper and lower bound distance matrices should be
+    given in order to create the same KNNG used in training MoDE embeddings. In case exact distance matrix was used to
+    train MoDE embeddings, you should pass the exact distance matrix to this attribute
+    n_neighbor: int, number of nearest neighbors used for computing the embeddings
     :return: R_d, distance preservation metric value
     """
     N = data.shape[0]
@@ -44,10 +46,12 @@ def correlation_metric(data, x_2d, dm, n_neighbor):
     nearest neighbors of each data point. More information on this metric can be found in the paper: "An Interpretable
     Data Embedding under Uncertain Distance Information"
 
-    :param data: array of shape (n_samples, n_features), input dataset
-    :param x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
-    :param dm: array of shape (n_samples, n_samples), exact pair-wise distances matrix
-    :param n_neighbor: int, number of nearest neighbors used for computing the embeddings
+    data: array of shape (n_samples, n_features), input dataset
+    x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
+    dm: array of shape (n_samples, n_samples), average of upper and lower bound distance matrices should be
+    given in order to create the same KNNG used in training MoDE embeddings. In case exact distance matrix was used to
+    train MoDE embeddings, you should pass the exact distance matrix to this attribute
+    n_neighbor: int, number of nearest neighbors used for computing the embeddings
     :return: R_c, correlation preservation metric value
     """
     N = data.shape[0]
@@ -78,10 +82,12 @@ def order_preservation(x_2d, dm, n_neighbor, score):
     More information on this metric can be found in the paper: "An Interpretable
     Data Embedding under Uncertain Distance Information"
 
-    :param x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
-    :param dm: array of shape (n_samples, n_samples), exact pair-wise distances matrix
-    :param n_neighbor: int, number of nearest neighbors used for computing the embeddings
-    :param score: Score (ranking) value for each data point
+    x_2d: array of shape (n_samples, dim_embedding_space), projected dataset in the embedding space
+    dm: array of shape (n_samples, n_samples), average of upper and lower bound distance matrices should be
+    given in order to create the same KNNG used in training MoDE embeddings. In case exact distance matrix was used to
+    train MoDE embeddings, you should pass the exact distance matrix to this attribute
+    n_neighbor: int, number of nearest neighbors used for computing the embeddings
+    score: Score (ranking) value for each data point
     :return: R_o, order preservation metric value
     """
     N = x_2d.shape[0]
@@ -108,10 +114,10 @@ def order_check(x1, x2, score_x1, score_x2):
     """
     check if two data points in the 2D embedded space are placed in the correct order. Data points with higher score
     should be placed in higher angles in polar coordinates (for MoDE embeddings).
-    :param x1: array, first data point in the 2D embedded space
-    :param x2: array, second data point in the 2D embedded space
-    :param score_x1: int, score of the first data point
-    :param score_x2: int, score of the second data point
+    x1: array, first data point in the 2D embedded space
+    x2: array, second data point in the 2D embedded space
+    score_x1: int, score of the first data point
+    score_x2: int, score of the second data point
     :return: 1 if the order is preserved, 0 otherwise
     """
     _, theta1 = cart2pol(x1[0], x1[1])
