@@ -17,3 +17,12 @@ If you find this code useful or use it in a publication or research, please use 
 
 ## References
 [1] N. Freris, M. Vlachos, A. Ajalloeian: "An Interpretable Data Embedding under Uncertain Distance Information", Proc. of ICDM 2020
+
+## Description of the folders
+- _"Experiment_Classification_Accuracy":_ This folder contains the code for the experiments which were conducted to compare MoDE with baseline embeddings in terms of the accuracy of a classification task (When the model was trained on the embeddings).
+
+- _"MATLAB_implementation":_ This fodler contains the MATLAB implementation of MoDE.
+
+- _"Python_implemetation":_ This folder contains the Python implementation of MoDE.
+
+- _"benchmark":_ This folder contains the code for benchmarking the MATLAB and Python implementations of MoDE in terms of results and execution time.
