@@ -1,7 +1,7 @@
 # Multi-objective-2D-Embeddings (MoDE)
-This repository contains the code and results for the paper "An Interpretable Data Embedding under Uncertain Distance Information", published at ICDM 2020. 
+This repository contains the code and results for the paper **"An Interpretable Data Embedding under Uncertain Distance Information"**, published at the International Conference on Data Mining (ICDM) in 2020. 
 
-The work presents a data embedding method called Multi-objective 2D Embedding (__MoDE__) that captures, with high fidelity, multiple facets of the data relationships: correlations, distances, and orders or importance rankings. Moreover, this embedding method enhances interpretability because:
+The work presents a data embedding method called Multi-objective 2D Embedding (__MoDE__) that captures, with high fidelity, multiple facets of the data relationships: correlations, distances, and orders or importance rankings. Moreover, this embedding method enhances **interpretability** because:
 
 1) It incorporates the ranks or scores of the data samples (if such ranks exist in the dataset) in the resulting embeddings and by placing points with higher scores in higher angles in 2D, provides an interpretable data embedding. 
 2) The embedding typically results in a "half-moon" visualization of the data. Therefore, the user sees typically a similar visualization of the data so understanding and interpretation is easier. For many other techniques, not only each dataset provides a different visualization outcome, but also different runs of the visualization method may give different visualization results.
