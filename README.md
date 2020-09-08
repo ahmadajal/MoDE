@@ -1,7 +1,10 @@
 # Multi-objective-2D-Embeddings (MoDE)
 This repository contains the code and results for the paper "An Interpretable Data Embedding under Uncertain Distance Information", published at ICDM 2020. 
 
-The work presents a data embedding method called Multi-objective 2D Embedding (__MoDE__) that captures, with high fidelity, multiple facets of the data relationships: correlations, distances, and orders or importance rankings. Moreover, this embedding method incorporates the ranks or scores of the data samples (if such ranks exist in the dataset) in the resulting embeddings and by placing points with higher scores in higher angles in 2D, provides an interpretable data embedding. 
+The work presents a data embedding method called Multi-objective 2D Embedding (__MoDE__) that captures, with high fidelity, multiple facets of the data relationships: correlations, distances, and orders or importance rankings. Moreover, this embedding method enhances interpretability because:
+
+1) It incorporates the ranks or scores of the data samples (if such ranks exist in the dataset) in the resulting embeddings and by placing points with higher scores in higher angles in 2D, provides an interpretable data embedding. 
+2) The embedding typically results in a "half-moon" visualization of the data. Therefore, the user sees typically a similar visualization of the data so understanding and interpretation is easier. For many other techniques, not only each dataset provides a different visualization outcome, but also different runs of the visualization method may give different visualization results.
 
 Useful Links:
 - An [extended version](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/MoDE_ICDM.pdf) of the ICDM publication. 
@@ -21,7 +24,7 @@ If you find this code useful or use it in a publication or research, please use 
 ## Description of the folders
 - _"Experiment_Classification_Accuracy":_ This folder contains the code for the experiments which were conducted to compare MoDE with baseline embeddings in terms of the accuracy of a classification task (When the model was trained on the embeddings).
 
-- _"MATLAB_implementation":_ This fodler contains the MATLAB implementation of MoDE.
+- _"MATLAB_implementation":_ This folder contains the MATLAB implementation of MoDE.
 
 - _"Python_implemetation":_ This folder contains the Python implementation of MoDE.
 
