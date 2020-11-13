@@ -1,7 +1,7 @@
 # Multi-objective-2D-Embeddings (MoDE)
 
 <p align="middle">
-  <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/S_shape_data_org.jpg" width="400" />
+  <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/S_shape_data_org.jpg" width="300" />
   <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/MoDE_iterations.gif" width="500" /> 
 </p>
 
