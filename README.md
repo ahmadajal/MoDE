@@ -1,6 +1,7 @@
 # Multi-objective-2D-Embeddings (MoDE)
 
 ![Alt Text](https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/MoDE_iterations.gif)
+
 This repository contains the code and results for the paper **"An Interpretable Data Embedding under Uncertain Distance Information"**, published at the International Conference on Data Mining (ICDM) in 2020. 
 
 The work presents a data embedding method called Multi-objective 2D Embedding (__MoDE__) that captures, with high fidelity, multiple facets of the data relationships: correlations, distances, and orders or importance rankings. Moreover, this embedding method enhances **interpretability** because:
