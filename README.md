@@ -1,15 +1,17 @@
 # MoDE: Multi-objective-2D-Embeddings
 
-This repository contains the code and results for the paper **"An Interpretable Data Embedding under Uncertain Distance Information"**, published at the International Conference on Data Mining (ICDM) in 2020. You may also watch the conference presentation:
+This repository contains the code and results for the paper **"An Interpretable Data Embedding under Uncertain Distance Information"**, published at the International Conference on Data Mining (ICDM) in 2020. 
 
-[![](http://img.youtube.com/vi/WC6ESPrQLXo/0.jpg)](http://www.youtube.com/watch?v=WC6ESPrQLXo "Video Presentation")
-
-This is a visualization of the iterations of MoDE that show the convergence of the algorithm for the [S-curve](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_s_curve.html) dataset.
+Below you may see a nice visualization of the iterations of MoDE that show the convergence of the algorithm for the [S-curve](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_s_curve.html) dataset.
 
 <p align="middle">
   <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/S_shape_data_org.jpg" width="300" />
   <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/MoDE_iterations.gif" width="500" /> 
 </p>
+
+To get a glimpse of the advantages of using MoDE in data visualization, you may watch the conference presentation:
+
+[![](http://img.youtube.com/vi/WC6ESPrQLXo/0.jpg)](http://www.youtube.com/watch?v=WC6ESPrQLXo "Video Presentation")
 
 
 # Details
