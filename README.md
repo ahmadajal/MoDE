@@ -34,10 +34,10 @@ Below you can see the visulaization of MoDE embeddings for a dataset of stocks w
 
 <img src="https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True" alt="mode_image" width="500">
 
-If you find this code useful or use it in a publication or research, please use citation [1]. We would also love to hear how you have used this code.
+If you find this code useful or use it in a publication or research, please cite [1]. We would also love to hear how you have used this code.
 
 ## References
-[1] N. Freris, M. Vlachos, A. Ajalloeian: "An Interpretable Data Embedding under Uncertain Distance Information", Proc. of ICDM 2020
+[1] N. Freris, M. Vlachos, A. Ajalloeian: "An Interpretable Data Embedding under Uncertain Distance Information", Proc. of IEEE ICDM 2020
 
 ## Description of the folders
 - _"Experiment_Classification_Accuracy":_ This folder contains the code for the experiments which were conducted to compare MoDE with baseline embeddings in terms of the accuracy of a classification task (When the model was trained on the embeddings).
