@@ -22,7 +22,7 @@ Multi-objective 2D Embedding (__MoDE__) is a 2D data embedding that captures, wi
 - distances, and, 
 - orders or importance rankings. 
 
-An unique characteristic of MoDE is that it does not require exact distances between the objects, like most visualization techniques do. We can give ranges of lower and upper bound distances between objects, which means that MoDE can **effectively visualize compressed data**!
+An unique characteristic of MoDE is that it does not require exact distances between the objects, like most visualization techniques do. We can give ranges of lower and upper bound distances between objects, which means that MoDE can **effectively visualize compressed or uncertain data**!
 
 Moreover, this embedding method enhances **interpretability** because:
 
