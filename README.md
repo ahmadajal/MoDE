@@ -28,8 +28,11 @@ Moreover, this embedding method enhances **interpretability** because:
 
 This repository contains both the Python and MATLAB implementations of MoDE. __Note that you can replicate the experimental results in the ICDM paper, using the MATLAB implementation of MoDE.__
 
-Below you can see the visulaization of MoDE embeddings for a dataset of stocks with 2252 samples and 1024 features. The market capitalization of each stock was used as score. You can also see the values of distance, correlation, and order preservation metrics on top of the plot.
+Below you can see the visulaization of MoDE embeddings for a dataset of stocks with 2252 samples and 1024 features. The market capitalization of each stock was used as the "rank" of each stock: higher rank will place the object at a higher angular position. You can also see the values of distance, correlation, and order preservation metrics on top of the plot.
 
+- **$R_d$** shows how well pairwise distances are captured (1 is best).
+- **$R_o$** shows how well "orders", or ranks, are captured (1 is best).
+- **$R_c$** shows how well correlations are captured (1 is best).
 
 
 <img src="https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True" alt="mode_image" width="500">
