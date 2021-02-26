@@ -30,7 +30,7 @@ Moreover, this embedding method enhances **interpretability** because:
 2) The embedding typically results in a "half-moon" visualization of the data. Therefore, the user sees typically a similar visualization of the data so understanding and interpretation is easier. For many other techniques, not only each dataset provides a different visualization outcome, but also different runs of the visualization method may give different visualization results.
 
 # Useful Links
-- The [conference paper](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/MoDE_ICDM.pdf) at ICDM 2020.
+- The [conference paper](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/MoDE_ICDM_2020.pdf) at ICDM 2020.
 - Datasets used for the experiments in the paper are [here](https://www.dropbox.com/sh/r5ovlq82ihcpc1j/AAALX__nRzVOShJMfhj35ZJBa?dl=0).
 
 This repository contains both the Python and MATLAB implementations of MoDE. __Note that you can replicate the experimental results in the ICDM paper, using the MATLAB implementation of MoDE.__
