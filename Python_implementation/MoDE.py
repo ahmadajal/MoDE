@@ -6,7 +6,7 @@ from sklearn.neighbors import NearestNeighbors
 
 class MoDE:
 
-    def __init__(self, n_neighbor, max_iter, tol, verbose=False):
+    def __init__(self, n_neighbor, max_iter, tol, n_components=2, verbose=False):
         """
         Implementation of the paper "An Interpretable Data Embedding under Uncertain Distance Information"
         <link_to_the_paper>
@@ -17,12 +17,14 @@ class MoDE:
         max_iter: int, Maximum number of iterations for gradient descent to solve the optimization problem
         tol: float, Tolerance value used as a stop condition for the gradient descent algorithm. GD stops either
         if the it reaches the maximum number of iterations or the error becomes smaller than this tolerance value.
+        n_components: dimensionality of the output embeddings
         verbose: (Default = False) If true, the progress of the gradient descent algorithm will be printed while
         the embeddings are being computed.
         """
         self.n_neighbor = n_neighbor
         self.max_iter = max_iter
         self.verbose = verbose
+        self.n_components = n_components
         self.tol = tol
 
     def fit_transform(self, data, score, dm_ub, dm_lb):
@@ -71,44 +73,68 @@ class MoDE:
         node_indices = inc_mat.nonzero()[1].reshape((-1, 2))
         c_ub = cm_ub[node_indices[:, 0], node_indices[:, 1]]
         c_lb = cm_lb[node_indices[:, 0], node_indices[:, 1]]
-        # Bounds on angular difference.
-        # note that acos() is a decreasing function
-        r_ub = np.arccos(c_lb)
-        r_lb = np.arccos(c_ub)
-        # Initialization of the GD algorithm
         # first we find the index of the point with the lowest score and remove it from incidence matrix
         min_ind = np.argmin(score.squeeze())
         inc_mat = inc_mat[:, list(range(min_ind)) + list(range(min_ind+1, N))]
-        # initialize angle values with zero
-        x = np.zeros(N-1)
-        # keeping the progress of algorithm
-        error_progression = np.zeros(self.max_iter)
-        gamma = 1 / (2 * np.max((np.dot(inc_mat.T, inc_mat)).diagonal()))
-        print(gamma)
-        if self.verbose:
-            print("Start of Gradient Descent algorithm")
-        for cnt in range(self.max_iter):
-            if cnt%10000 == 0 and self.verbose:
-                print("{} out of {} iterations has passed".format(cnt, self.max_iter))
-                # print(x)
+        # we keep a matrix P containing all the angles, size: N * (n_components-1)
+        self.P = np.zeros((N, self.n_components-1))*0.01 # was initialized by zero before
+        for phi in range(self.n_components-1):
+            # Bounds on angular difference.
+            # note that acos() is a decreasing function
+            if phi == 0:
+                r_ub = np.arccos(c_lb)
+                r_lb = np.arccos(c_ub)
+            else:
+                if phi == 1:  #correlation in p=2 dimensions
+                    x_pd_norms = np.linalg.norm(x_pd, axis=1)
+                    c_p = np.einsum("ij,ij->i", x_pd[node_indices[:, 0]], x_pd[node_indices[:, 1]]) / \
+                    (x_pd_norms[node_indices[:, 0]] * x_pd_norms[node_indices[:, 1]])
+                else: #correlation in p>2 dimensions, eq 8 in the paper
+                    xx = np.prod(np.sin(self.P[node_indices[:, 0], :phi-1]), axis=1) * \
+                            np.prod(np.sin(self.P[node_indices[:, 1], :phi-1]), axis=1) * \
+                            (np.cos(self.P[node_indices[:, 1], phi-1] - self.P[node_indices[:, 0], phi-1]) - 1)
+                    c_p = c_p + xx
+                    print((xx<=0).all())
+                denom = np.prod(np.sin(self.P[node_indices[:, 0], :phi]), axis=1) * \
+                        np.prod(np.sin(self.P[node_indices[:, 1], :phi]), axis=1)
+                r_ub = np.arccos(self.proj_l_u(1 + (c_lb - c_p) / denom, -1, 1))
+                r_lb = np.arccos(self.proj_l_u(1 + (c_ub - c_p) / denom, -1, 1))
+            # Initialization of the GD algorithm
+            # initialize angle values with zero
+            x = np.zeros(N-1)
+            # keeping the progress of algorithm
+            error_progression = np.zeros(self.max_iter)
+            gamma = 1 / (2 * np.max((np.dot(inc_mat.T, inc_mat)).diagonal()))
+            print(gamma)
+            if self.verbose:
+                print("Start of Gradient Descent algorithm")
+            for cnt in range(self.max_iter):
+                if cnt%10000 == 0 and self.verbose:
+                    print("{} out of {} iterations has passed".format(cnt, self.max_iter))
+                    # print(x)
 
-            e = (1/np.sqrt(N-1)) * np.linalg.norm(inc_mat.T.dot(inc_mat.dot(x) - self.proj_l_u(inc_mat.dot(x), r_lb, r_ub)))
-            error_progression[cnt] = e
-            # check if the error is below tolerance
-            if cnt % 1000 == 0 and e < self.tol:
-                if self.verbose:
-                    print("GD stopped after {} iteration".format(cnt))
-                error_progression = error_progression[:cnt+1]
-                break  # here the algorithm finishes
-            # The update step
-            x = x - gamma * inc_mat.T.dot(inc_mat.dot(x) - self.proj_l_u(inc_mat.dot(x), r_lb, r_ub))
-        # adding back the point with the least score
-        x = np.concatenate((x[:min_ind], np.array([0]), x[min_ind:]), axis=0)
-        if self.verbose:
-            print("end of GD algorithm")
-        # generating the points in 2D
-        x_2d = np.concatenate((data_norms * np.cos(x), data_norms * np.sin(x)), axis=0).reshape((2, -1)).T
-        return x_2d
+                e = (1/np.sqrt(N-1)) * np.linalg.norm(inc_mat.T.dot(inc_mat.dot(x) - self.proj_l_u(inc_mat.dot(x), r_lb, r_ub)))
+                error_progression[cnt] = e
+                # check if the error is below tolerance
+                if cnt % 1000 == 0 and e < self.tol:
+                    if self.verbose:
+                        print("GD stopped after {} iteration".format(cnt))
+                    error_progression = error_progression[:cnt+1]
+                    break  # here the algorithm finishes
+                # The update step
+                x = x - gamma * inc_mat.T.dot(inc_mat.dot(x) - self.proj_l_u(inc_mat.dot(x), r_lb, r_ub))
+            # adding back the point with the least score
+            x = np.concatenate((x[:min_ind], np.array([0.01]), x[min_ind:]), axis=0)
+            if self.verbose:
+                print("end of GD algorithm")
+            # keeping the resulting angles
+            self.P[:, phi] = x
+            # generating the points in phi+1 dimensions
+            if phi == 0:
+                x_pd = np.concatenate((data_norms * np.cos(x), data_norms * np.sin(x)), axis=0).reshape((2, -1)).T
+            else:
+                x_pd = self.to_hyper_spherical(data_norms, self.P[:, :phi+1])
+        return x_pd
 
     def incidence_matrix(self, A, score):
         """
@@ -157,8 +183,21 @@ class MoDE:
         """
         return np.minimum(np.maximum(x, l), u)
 
+    def to_hyper_spherical(self, r, angles):
+        """
+        convert array x from cartesian to hyper-spherical coordinates
 
-
-
-
-
+        r: norm of the data points (N * 1 vector)
+        angles: angles of the hyper_spherical coordinates (N * p-1 matrix)
+        :return: output data in cartesian coordinates (N * p matrix)
+        """
+        r = np.array(r)
+        N = len(r)
+        angles = np.array(angles)
+        if angles.shape[0] != N:
+            raise ValueError("dimension of the norms and angles array do not match: {}, {}".format(r.shape, angles.shape))
+        x_cart = np.zeros((N, angles.shape[1] + 1))
+        for i in range(angles.shape[1]):
+            x_cart[:, i] = r * np.prod(np.sin(angles[:, :i]), axis=1) * np.cos(angles[:, i])
+        x_cart[:, -1] = r * np.prod(np.sin(angles), axis=1)
+        return x_cart
