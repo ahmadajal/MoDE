@@ -72,7 +72,7 @@ def correlation_metric(data, x_2d, dm, n_neighbor):
     return R_c
 
 
-def order_preservation(x_2d, dm, n_neighbor, score):
+def order_preservation(x_2d, angles, dm, n_neighbor, score):
     """
     Compute the order preservation metric for the embedded data. The range of the output values are between 0 and 1,
     with larger values showing that the projected dataset in the embedding space has a higher fidelity in preserving
@@ -99,9 +99,26 @@ def order_preservation(x_2d, dm, n_neighbor, score):
     A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
     edges = set([tuple(sorted(x)) for x in zip(find(A)[0], find(A)[1])])
     # cost of order preservation for each pair
-    c = [order_check(x_2d[e[0]], x_2d[e[1]], score[e[0]], score[e[1]]) for e in edges]
+    c = [order_check(angles[e[0]], angles[e[1]], score[e[0]], score[e[1]]) for e in edges]
     R_o = 1 - np.mean(c)
     return R_o
+
+def order_check(theta1, theta2, score_x1, score_x2):
+    """
+    check if two data points in the 2D embedded space are placed in the correct order. Data points with higher score
+    should be placed in higher angles in polar coordinates (for MoDE embeddings).
+    x1: array, first data point in the 2D embedded space
+    x2: array, second data point in the 2D embedded space
+    score_x1: int, score of the first data point
+    score_x2: int, score of the second data point
+    :return: 1 if the order is preserved, 0 otherwise
+    """
+    # check if the order is not preserved
+    if ((score_x1 < score_x2) & (theta1 > theta2)) | ((score_x1 > score_x2) & (theta1 < theta2)):
+        # print(theta1, score_x1, theta2, score_x2)
+        return 1
+    else:
+        return 0
 
 
 def cart2pol(x, y):
@@ -110,7 +127,7 @@ def cart2pol(x, y):
     return r, theta
 
 
-def order_check(x1, x2, score_x1, score_x2):
+def order_check_old(x1, x2, score_x1, score_x2):
     """
     check if two data points in the 2D embedded space are placed in the correct order. Data points with higher score
     should be placed in higher angles in polar coordinates (for MoDE embeddings).
@@ -128,4 +145,3 @@ def order_check(x1, x2, score_x1, score_x2):
         return 1
     else:
         return 0
-
