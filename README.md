@@ -1,4 +1,4 @@
-# MoDE: Multi-objective-2D-Embeddings
+# MoDE: Multi-objective-Data-Embedding
 
 This repository contains the code and results for the paper **"An Interpretable Data Embedding under Uncertain Distance Information"**, published at the International Conference on Data Mining (ICDM) in 2020. 
 
@@ -16,7 +16,7 @@ To get a glimpse of the advantages of using MoDE in data visualization, you may 
 
 # Details
 
-Multi-objective 2D Embedding (__MoDE__) is a 2D data embedding that captures, with high fidelity, multiple facets of the data relationships: 
+Multi-objective Data Embedding (__MoDE__) is a 2D data embedding that captures, with high fidelity, multiple facets of the data relationships: 
 
 - correlations, 
 - distances, and, 
@@ -28,6 +28,8 @@ Moreover, this embedding method enhances **interpretability** because:
 
 1) It incorporates the ranks or scores of the data samples (if such ranks exist in the dataset) in the resulting embeddings and by placing points with higher scores in higher angles in 2D, provides an interpretable data embedding. 
 2) The embedding typically results in a "half-moon" visualization of the data. Therefore, the user sees typically a similar visualization of the data so understanding and interpretation is easier. For many other techniques, not only each dataset provides a different visualization outcome, but also different runs of the visualization method may give different visualization results.
+
+In recent work we have also extended __MoDE__ to work not only on 2D, but to project on any dimensionality. 
 
 # Useful Links
 - The [conference paper](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/MoDE_ICDM_2020.pdf) at ICDM 2020.
