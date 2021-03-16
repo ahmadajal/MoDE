@@ -2,7 +2,7 @@
 
 This repository contains the code and results for the paper **"An Interpretable Data Embedding under Uncertain Distance Information"**, published at the International Conference on Data Mining (ICDM) in 2020. 
 
-Below you may see a nice visualization of the iterations of MoDE that show the convergence of the algorithm for the [S-curve](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_s_curve.html) dataset.
+Below you may see a nice visualization of the iterations of MoDE that show the convergence of the algorithm for the well-known [S-curve](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_s_curve.html) dataset.
 
 <p align="middle">
   <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/S_shape_data_org.jpg" width="300" />
