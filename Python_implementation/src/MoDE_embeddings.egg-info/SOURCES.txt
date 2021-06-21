@@ -1,0 +1,12 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+src/MoDE_embeddings/MoDE.py
+src/MoDE_embeddings/__init__.py
+src/MoDE_embeddings/metrics.py
+src/MoDE_embeddings/waterfilling_compression.py
+src/MoDE_embeddings.egg-info/PKG-INFO
+src/MoDE_embeddings.egg-info/SOURCES.txt
+src/MoDE_embeddings.egg-info/dependency_links.txt
+src/MoDE_embeddings.egg-info/top_level.txt
