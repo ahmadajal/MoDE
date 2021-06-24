@@ -2,11 +2,11 @@ import numpy as np
 import scipy
 from scipy.sparse import identity, find, csr_matrix
 from sklearn.neighbors import NearestNeighbors
-
+from sklearn.metrics import pairwise_distances
 
 class MoDE:
 
-    def __init__(self, n_neighbor, max_iter, tol, n_components=2, verbose=False):
+    def __init__(self, n_neighbor=20, max_iter=10000, tol=0.001, n_components=2, verbose=False):
         """
         Implementation of the paper "An Interpretable Data Embedding under Uncertain Distance Information"
         <link_to_the_paper>
@@ -27,7 +27,7 @@ class MoDE:
         self.n_components = n_components
         self.tol = tol
 
-    def fit_transform(self, data, score, dm_ub, dm_lb):
+    def fit_transform(self, data, score, dm_ub=None, dm_lb=None):
         """
         Fit data into an embedded space and return the transformed 2D output
 
@@ -40,12 +40,17 @@ class MoDE:
         samples from each other. In some cases, like data compression, exact pair-wise distances between data points
         are not available. In such cases ranges of upper and lower bound distances between data points can be computed.
         MoDE can operate on such distance bounds. In the case where exact distance information are available, just pass
-        the exact distance matrix to both `dm_ub` and `dm_lb`.
+        the exact distance matrix to both `dm_ub` and `dm_lb`. If "None" then the exact distance matrix will be computed.
         dm_lb: array of shape (n_samples, n_samples) that contain the lower-bound on the mutual distance of data
-        samples from each other.
+        samples from each other. If "None" then the exact distance matrix will be computed.
         :return: x_2d: array of shape (n_samples, 2). Embedding of the training data in 2D space.
         """
         N = data.shape[0]
+        if dm_ub==None or dm_lb==None:
+            dm = pairwise_distances(data, n_jobs=-1)
+            dm = np.round(dm, decimals=5)
+            dm_ub = dm
+            dm_lb = dm
         # check if distance matrices are symmetric
         if np.any(dm_ub.T != dm_ub) or np.any(dm_lb.T != dm_lb.T):
             raise Exception("distance matrices should be symmetric")
