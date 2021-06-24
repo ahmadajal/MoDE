@@ -25,7 +25,7 @@ def distance_metric(data, x_2d, n_neighbor, dm=None):
     # dm is in general the average of dm_ub and dm_lb and hence could be potentially different from the original distance matrix
     dm_orig = pairwise_distances(data, n_jobs=-1)
     # if dm is None then use the exact distance matrix
-    if dm==None:
+    if dm is None:
         dm = dm_orig
     # creating the adjacency matrix for KNNG (from the average distance matrix "dm")
     # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
@@ -58,7 +58,7 @@ def correlation_metric(data, x_2d, n_neighbor, dm=None):
     :return: R_c, correlation preservation metric value
     """
     N = data.shape[0]
-    if dm==None:
+    if dm is None:
         dm = pairwise_distances(data, n_jobs=-1)
     # creating the adjacency matrix for KNNG (from the average distance matrix "dm")
     # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
@@ -99,7 +99,7 @@ def order_preservation(data, angles, n_neighbor, score, dm=None):
     :return: R_o, order preservation metric value
     """
     N = data.shape[0]
-    if dm==None:
+    if dm is None:
         dm = pairwise_distances(data, n_jobs=-1)
     # creating the adjacency matrix for KNNG (from the average distance matrix "dm")
     # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later

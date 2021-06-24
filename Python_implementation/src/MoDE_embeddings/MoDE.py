@@ -46,7 +46,7 @@ class MoDE:
         :return: x_2d: array of shape (n_samples, 2). Embedding of the training data in 2D space.
         """
         N = data.shape[0]
-        if dm_ub==None or dm_lb==None:
+        if dm_ub is None or dm_lb is None:
             dm = pairwise_distances(data, n_jobs=-1)
             dm = np.round(dm, decimals=5)
             dm_ub = dm
