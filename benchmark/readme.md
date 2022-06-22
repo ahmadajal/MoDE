@@ -95,14 +95,8 @@ The table below shows the runtime comparison (in seconds) for different datasets
   <tr>
     <td>madelon</td>
     <td>2080</td>
-    <td>147.25</td>
+    <td>15.69</td>
     <td>65.75</td>
-  </tr>
-  <tr>
-    <td>MNIST (subset)</td>
-    <td>2000</td>
-    <td>96.02</td>
-    <td>23.89</td>
   </tr>
 </tbody>
 </table>
