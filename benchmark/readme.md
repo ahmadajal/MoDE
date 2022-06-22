@@ -59,43 +59,43 @@ The table below shows the runtime comparison (in seconds) for different datasets
   <tr>
     <td>Small Stock<br></td>
     <td>436</td>
-    <td>0.49</td>
+    <td>0.077</td>
     <td>3.579</td>
   </tr>
   <tr>
     <td>Big Stock</td>
     <td>2256</td>
-    <td>2.4</td>
+    <td>0.63</td>
     <td>69.768</td>
   </tr>
   <tr>
     <td>Breast Cancer</td>
     <td>569</td>
-    <td>0.87</td>
+    <td>0.078</td>
     <td>4.56</td>
   </tr>
   <tr>
     <td>cifar-10 (subset)</td>
     <td>8000</td>
-    <td>27.85</td>
+    <td>9.42</td>
     <td>409.52</td>
   </tr>
   <tr>
     <td>EEG</td>
     <td>11853</td>
-    <td>20.25</td>
+    <td>11.8</td>
     <td>583.323</td>
   </tr>
   <tr>
     <td>heart beat</td>
     <td>14545</td>
-    <td>33.57</td>
+    <td>19.14</td>
     <td>837.88</td>
   </tr>
   <tr>
     <td>madelon</td>
     <td>2080</td>
-    <td>15.69</td>
+    <td>0.56</td>
     <td>65.75</td>
   </tr>
 </tbody>
