@@ -43,14 +43,17 @@ Below you can see the visulaization of MoDE embeddings for a dataset of stocks w
 - **$R_o$** shows how well "orders", or ranks, are captured (1 is best).
 - **$R_c$** shows how well correlations are captured (1 is best).
 
-
 <img src="https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True" alt="mode_image" width="500">
+
+# Update
+A more complete version of this paper has been accepted in the ACM Transactions on Knowledge Discovery from Data (TKDD) [2] which includes the extension of MoDE to n-dimensional embeddings. 
 
 If you find this code useful or use it in a publication or research, please cite [1]. We would also love to hear how you have used this code.
 
 ## References
 [1] N. Freris, M. Vlachos, A. Ajalloeian: "An Interpretable Data Embedding under Uncertain Distance Information", Proc. of IEEE ICDM 2020
 
+[2] N. Freris, A. Ajalloeian, M. Vlachos: "Interpretable Embedding and Visualization of Compressed Data", ACM Transactions on Knowledge Discovery from Data (TKDD)
 ## Description of the folders
 - _"Experiment_Classification_Accuracy":_ This folder contains the code for the experiments which were conducted to compare MoDE with baseline embeddings in terms of the accuracy of a classification task (When the model was trained on the embeddings).
 
