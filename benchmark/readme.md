@@ -71,7 +71,7 @@ The table below shows the runtime comparison (in seconds) for different datasets
   <tr>
     <td>Breast Cancer</td>
     <td>569</td>
-    <td>11.1</td>
+    <td>0.87</td>
     <td>4.56</td>
   </tr>
   <tr>
