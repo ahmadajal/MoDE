@@ -48,7 +48,7 @@ Below you can see the visulaization of MoDE embeddings for a dataset of stocks w
 # Update
 A more complete version of this paper has been accepted in the ACM Transactions on Knowledge Discovery from Data (TKDD) [2] which includes the extension of MoDE to n-dimensional embeddings. 
 
-If you find this code useful or use it in a publication or research, please cite [1]. We would also love to hear how you have used this code.
+If you find this code useful or use it in a publication or research, please cite [1,2]. We would also love to hear how you have used this code.
 
 ## References
 [1] N. Freris, M. Vlachos, A. Ajalloeian: "An Interpretable Data Embedding under Uncertain Distance Information", Proc. of IEEE ICDM 2020
