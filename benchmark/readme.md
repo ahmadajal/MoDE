@@ -89,7 +89,7 @@ The table below shows the runtime comparison (in seconds) for different datasets
   <tr>
     <td>heart beat</td>
     <td>14545</td>
-    <td>1529.77</td>
+    <td>33.57</td>
     <td>837.88</td>
   </tr>
   <tr>
