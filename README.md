@@ -32,7 +32,7 @@ Moreover, this embedding method enhances **interpretability** because:
 In recent work we have also extended __MoDE__ to work not only on 2D, but to project on any dimensionality. 
 
 # Useful Links
-- The [conference paper](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/MoDE_ICDM_2020.pdf) at ICDM 2020.
+- The [conference paper](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/MoDE_ICDM_2020.pdf) at ICDM 2020, and an extended version has been accepted in the [ACM Transactions on Knowledge Discovery from Data (TKDD)](https://dl.acm.org/doi/abs/10.1145/3537901) [2] which includes the extension of MoDE to n-dimensional embeddings. 
 - Datasets used for the experiments in the paper are [here](https://www.dropbox.com/sh/r5ovlq82ihcpc1j/AAALX__nRzVOShJMfhj35ZJBa?dl=0).
 
 This repository contains both the Python and MATLAB implementations of MoDE. __Note that you can replicate the experimental results in the ICDM paper, using the MATLAB implementation of MoDE.__
@@ -45,8 +45,6 @@ Below you can see the visulaization of MoDE embeddings for a dataset of stocks w
 
 <img src="https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/images/mode.png?raw=True" alt="mode_image" width="500">
 
-# Update
-A more complete version of this paper has been accepted in the ACM Transactions on Knowledge Discovery from Data (TKDD) [2] which includes the extension of MoDE to n-dimensional embeddings. 
 
 If you find this code useful or use it in a publication or research, please cite [1,2]. We would also love to hear how you have used this code.
 
