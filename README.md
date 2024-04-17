@@ -51,7 +51,7 @@ If you find this code useful or use it in a publication or research, please cite
 ## References
 [1] N. Freris, M. Vlachos, A. Ajalloeian: "An Interpretable Data Embedding under Uncertain Distance Information", Proc. of IEEE ICDM 2020
 
-[2] N. Freris, A. Ajalloeian, M. Vlachos: "Interpretable Embedding and Visualization of Compressed Data", ACM Transactions on Knowledge Discovery from Data (TKDD)
+[2] N. Freris, A. Ajalloeian, M. Vlachos: "Interpretable Embedding and Visualization of Compressed Data", ACM Transactions on Knowledge Discovery from Data (TKDD), 2023
 ## Description of the folders
 - _"Experiment_Classification_Accuracy":_ This folder contains the code for the experiments which were conducted to compare MoDE with baseline embeddings in terms of the accuracy of a classification task (When the model was trained on the embeddings).
 
