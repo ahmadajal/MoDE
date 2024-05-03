@@ -3,13 +3,11 @@ import scipy
 from scipy.sparse import identity, find, csr_matrix
 from sklearn.neighbors import NearestNeighbors
 from sklearn.metrics import pairwise_distances
-from tqdm import tqdm
 import time
 import scipy.sparse as sparse
 import fastgd.fastgd_base as fastgd_base
 import fastgd.fastgd_cython as fastgd_cython
 import fastgd.fastgd_faster as fastgd_faster
-import pdb
 import itertools
 class MoDE:
     def __init__(
@@ -153,7 +151,6 @@ class MoDE:
             gamma = 1 / (2 * np.max((np.dot(inc_mat.T, inc_mat)).diagonal()))
             # t_final = time.time()
             # print(t_final - t_init)        
-            #pdb.set_trace()
             if self.method == "base":
                 x = self.gd_iter(inc_mat, N, r_lb, r_ub, gamma)
             elif self.method == "fastgd_base":
@@ -218,13 +215,6 @@ class MoDE:
         )
         # t2 = time.time()
         print("Incidence matrix created ")
-        #pdb.set_trace()
-        # temporary:
-        # edges = []
-        # for t in zip(find(A.T)[1], find(A.T)[0]):
-        #     if tuple(sorted(t)) not in edges:
-        #         edges.append(t)
-        # edges = [tuple(sorted(x, key=lambda y: score[y])) for x in edges]
 
         row_ind = np.repeat(range(len(edges)),2)
         col_ind = list(itertools.chain(*edges))
