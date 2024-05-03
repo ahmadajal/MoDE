@@ -70,14 +70,14 @@ class MoDE:
         # check if distance matrices are symmetric
         if np.any(dm_ub.T != dm_ub) or np.any(dm_lb.T != dm_lb.T):
             raise Exception("distance matrices should be symmetric")
-        t_after_symmetric_check = time.time()
-        print("after symmetric check: ", t_after_symmetric_check - t_init)
+        # t_after_symmetric_check = time.time()
+        # print("after symmetric check: ", t_after_symmetric_check - t_init)
         # compute the norm of each point
         data_norms = np.linalg.norm(data, axis=1)
         if 0 in data_norms:
             raise Exception("error: remove zero-norm points")
-        t_after_norms = time.time()
-        print("after norms: ", t_after_norms - t_after_symmetric_check)
+        # t_after_norms = time.time()
+        # print("after norms: ", t_after_norms - t_after_symmetric_check)
         # compute the correlation lower and upper bound
         data_norms_i = np.repeat(data_norms, repeats=N).reshape((N, N)).T
         data_norms_j = np.repeat(data_norms, repeats=N).reshape((N, N))
@@ -87,22 +87,22 @@ class MoDE:
         cm_lb = (data_norms_i ** 2 + data_norms_j ** 2 - dm_ub ** 2) / (
             2 * data_norms_i * data_norms_j
         )
-        t_after_cm = time.time()
-        print("after cm computation: ", t_after_cm -  t_after_norms)
+        # t_after_cm = time.time()
+        print("correlation lower and upper bound computed.")
 
         # create the KNN Graph
         # take the average distances to create the KNNG
         dm = (dm_ub + dm_lb) / 2
         # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
-        t0 = time.time()
+        # t0 = time.time()
         neigh = NearestNeighbors(
             n_neighbors=self.n_neighbor + 1, metric="precomputed", n_jobs=-1
         )
         neigh.fit(dm)
         # compute the adjacency matrix
         A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
-        t1 = time.time()
-        print("KNN computation time: ", t1-t0)
+        # t1 = time.time()
+        print("KNN graph computed.")
         # construct the incidence matrix
         inc_mat = self.incidence_matrix(A, score)
         # Bounds on correlation (vectors of length = # edges)
@@ -151,8 +151,8 @@ class MoDE:
                 r_lb = np.arccos(self.proj_l_u(1 + (c_ub - c_p) / denom, -1, 1))
 
             gamma = 1 / (2 * np.max((np.dot(inc_mat.T, inc_mat)).diagonal()))
-            t_final = time.time()
-            print(t_final - t_init)        
+            # t_final = time.time()
+            # print(t_final - t_init)        
             #pdb.set_trace()
             if self.method == "base":
                 x = self.gd_iter(inc_mat, N, r_lb, r_ub, gamma)
@@ -190,7 +190,7 @@ class MoDE:
         return x_pd
 
     def incidence_matrix(self, A, score):
-        t0 = time.time()
+        # t0 = time.time()
         """
         Creates the sparse incidence matrix of a graph from its adjacency matrix. More information about incidence
         matrix could be found in the paper
@@ -216,8 +216,8 @@ class MoDE:
                 for x in zip(find(A)[0], find(A)[1])
             ]
         )
-        t2 = time.time()
-        print("Inc Matrix time : {}".format(t2 - t0))
+        # t2 = time.time()
+        print("Incidence matrix created ")
         #pdb.set_trace()
         # temporary:
         # edges = []
