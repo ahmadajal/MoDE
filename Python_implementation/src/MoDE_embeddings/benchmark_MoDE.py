@@ -5,13 +5,10 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from functools import partial
 from time import time
-import pickle
-import sys
-from MoDE import MoDE
+from MoDE_embeddings import MoDE
 from sklearn.manifold import TSNE, Isomap, MDS
-from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import pairwise_distances
-from metrics import distance_metric, correlation_metric, order_preservation
+from MoDE_embeddings.metrics import distance_metric, correlation_metric, order_preservation
 from sklearn import datasets, manifold
 ####
 import argparse
