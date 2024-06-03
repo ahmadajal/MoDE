@@ -1,9 +1,12 @@
 import numpy as np
 import scipy
 from scipy.sparse import identity, find, csr_matrix
+from scipy.spatial import distance
 from sklearn.neighbors import NearestNeighbors
 from sklearn.metrics import pairwise_distances
 import time
+import gc
+import copy
 import scipy.sparse as sparse
 import fastgd.fastgd_base as fastgd_base
 import fastgd.fastgd_cython as fastgd_cython
@@ -59,54 +62,101 @@ class MoDE:
         :return: x_2d: array of shape (n_samples, 2). Embedding of the training data in 2D space.
         """
         t_init = time.time()
+        print("start")
         N = data.shape[0]
-        if dm_ub is None or dm_lb is None:
-            dm = pairwise_distances(data, n_jobs=-1)
-            dm = np.round(dm, decimals=5)
-            dm_ub = dm
-            dm_lb = dm
-        # check if distance matrices are symmetric
-        if np.any(dm_ub.T != dm_ub) or np.any(dm_lb.T != dm_lb.T):
-            raise Exception("distance matrices should be symmetric")
-        # t_after_symmetric_check = time.time()
-        # print("after symmetric check: ", t_after_symmetric_check - t_init)
         # compute the norm of each point
         data_norms = np.linalg.norm(data, axis=1)
         if 0 in data_norms:
             raise Exception("error: remove zero-norm points")
-        # t_after_norms = time.time()
-        # print("after norms: ", t_after_norms - t_after_symmetric_check)
-        # compute the correlation lower and upper bound
-        data_norms_i = np.repeat(data_norms, repeats=N).reshape((N, N)).T
-        data_norms_j = np.repeat(data_norms, repeats=N).reshape((N, N))
-        cm_ub = (data_norms_i ** 2 + data_norms_j ** 2 - dm_lb ** 2) / (
-            2 * data_norms_i * data_norms_j
-        )
-        cm_lb = (data_norms_i ** 2 + data_norms_j ** 2 - dm_ub ** 2) / (
-            2 * data_norms_i * data_norms_j
-        )
-        # t_after_cm = time.time()
-        print("correlation lower and upper bound computed.")
-
-        # create the KNN Graph
-        # take the average distances to create the KNNG
-        dm = (dm_ub + dm_lb) / 2
-        # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
-        # t0 = time.time()
-        neigh = NearestNeighbors(
-            n_neighbors=self.n_neighbor + 1, metric="precomputed", n_jobs=-1
-        )
-        neigh.fit(dm)
-        # compute the adjacency matrix
-        A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
-        # t1 = time.time()
+        if dm_ub is None or dm_lb is None:
+            # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+            neigh = NearestNeighbors(n_neighbors=self.n_neighbor + 1, n_jobs=-1)
+            neigh.fit(data)
+            # compute the adjacency matrix
+            A = neigh.kneighbors_graph(data) - identity(N, format="csr")
+        else:
+            # check if distance matrices are symmetric
+            if np.any(dm_ub.T != dm_ub) or np.any(dm_lb.T != dm_lb.T):
+                raise Exception("distance matrices should be symmetric")
+            # take the average distances to create the KNNG
+            dm = (dm_ub + dm_lb) / 2
+            # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+            neigh = NearestNeighbors(
+                n_neighbors=self.n_neighbor + 1, metric="precomputed", n_jobs=-1
+            )
+            neigh.fit(dm)
+            # compute the adjacency matrix
+            A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
         print("KNN graph computed.")
         # construct the incidence matrix
         inc_mat = self.incidence_matrix(A, score)
-        # Bounds on correlation (vectors of length = # edges)
+        # Compute the bounds on correlation (vectors of length = # edges)
         node_indices = inc_mat.nonzero()[1].reshape((-1, 2))
-        c_ub = cm_ub[node_indices[:, 0], node_indices[:, 1]]
-        c_lb = cm_lb[node_indices[:, 0], node_indices[:, 1]]
+        c_ub = np.zeros(len(node_indices))
+        c_lb = np.zeros(len(node_indices))
+        for i, ind in enumerate(node_indices):
+            if dm_ub is None or dm_lb is None:
+                d_lb = distance.euclidean(data[ind[0]], data[ind[1]])
+                d_ub = d_lb
+            else:
+                d_lb = dm_lb[ind[0], ind[1]]
+                d_ub = dm_ub[ind[0], ind[1]]
+            c_ub[i] = (data_norms[ind[0]]**2 + data_norms[ind[1]]**2 - d_lb**2) / (
+                2 * data_norms[ind[0]] * data_norms[ind[1]]
+            )
+            c_lb[i] = (data_norms[ind[0]]**2 + data_norms[ind[1]]**2 - d_ub**2) / (
+                2 * data_norms[ind[0]] * data_norms[ind[1]]
+            )
+        print("Bounds on correlations computed.")
+        # t_after_norms = time.time()
+        # print("after norms: ", t_after_norms - t_after_symmetric_check)
+        # compute the correlation lower and upper bound
+        # data_norms_grid = np.repeat(data_norms, repeats=N).reshape((N, N)).T
+        # # data_norms_j = np.repeat(data_norms, repeats=N).reshape((N, N))
+        # cm_ub = (data_norms_grid ** 2 + data_norms_grid.T ** 2 - dm_lb ** 2) / (
+        #     2 * data_norms_grid * data_norms_grid.T
+        # )
+        # cm_lb = (data_norms_grid ** 2 + data_norms_grid.T ** 2 - dm_ub ** 2) / (
+        #     2 * data_norms_grid * data_norms_grid.T
+        # )
+        # more memory-efficient way
+        # cm_ub = np.zeros((N, N))
+        # cm_lb = np.zeros((N, N))
+        # for i in range(N):
+        #     norm_i_repeat = np.repeat(data_norms[i], repeats=N)
+        #     cm_ub[i] = (norm_i_repeat**2 + data_norms**2 - dm_lb[i]**2) / (
+        #         2 * norm_i_repeat * data_norms
+        #     )
+        #     cm_lb[i] = (norm_i_repeat**2 + data_norms**2 - dm_ub[i]**2) / (
+        #         2 * norm_i_repeat * data_norms
+        #     )
+
+        # t_after_cm = time.time()
+        # print("correlation lower and upper bound computed.")
+
+        # create the KNN Graph
+        # take the average distances to create the KNNG
+        # dm = copy.deepcopy((dm_ub + dm_lb) / 2)
+        # # release the memory
+        # del dm_ub
+        # del dm_lb
+        # gc.collect()
+        # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+        # t0 = time.time()
+        # neigh = NearestNeighbors(
+        #     n_neighbors=self.n_neighbor + 1, metric="precomputed", n_jobs=-1
+        # )
+        # neigh.fit(dm)
+        # # compute the adjacency matrix
+        # A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
+        # # t1 = time.time()
+        # print("KNN graph computed.")
+        # # construct the incidence matrix
+        # inc_mat = self.incidence_matrix(A, score)
+        # Bounds on correlation (vectors of length = # edges)
+        # node_indices = inc_mat.nonzero()[1].reshape((-1, 2))
+        # c_ub = cm_ub[node_indices[:, 0], node_indices[:, 1]]
+        # c_lb = cm_lb[node_indices[:, 0], node_indices[:, 1]]
         # first we find the index of the point with the lowest score and remove it from incidence matrix
         min_ind = np.argmin(score.squeeze())
         inc_mat = inc_mat[:, list(range(min_ind)) + list(range(min_ind + 1, N))]
