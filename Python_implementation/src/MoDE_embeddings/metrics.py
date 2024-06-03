@@ -22,21 +22,24 @@ def distance_metric(data, x_2d, n_neighbor, dm=None):
     :return: R_d, distance preservation metric value
     """
     N = data.shape[0]
-    # dm is in general the average of dm_ub and dm_lb and hence could be potentially different from the original distance matrix
-    dm_orig = pairwise_distances(data, n_jobs=-1)
-    # if dm is None then use the exact distance matrix
     if dm is None:
-        dm = dm_orig
-    # creating the adjacency matrix for KNNG (from the average distance matrix "dm")
-    # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
-    neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, metric="precomputed", n_jobs=-1)
-    neigh.fit(dm)
-    # compute the adjacency matrix
-    A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
+        # creating the adjacency matrix for KNNG using the data.
+        # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+        neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, n_jobs=-1)
+        neigh.fit(data)
+        # compute the adjacency matrix
+        A = neigh.kneighbors_graph(data) - identity(N, format="csr")
+    else:
+        # creating the adjacency matrix for KNNG using the provided distance matrix
+        # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+        neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, metric="precomputed", n_jobs=-1)
+        neigh.fit(dm)
+        # compute the adjacency matrix
+        A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
     edges = set([tuple(sorted(x)) for x in zip(find(A)[0], find(A)[1])])
     # cost of distance preservation for each pair
-    c = [abs(dm_orig[e[0], e[1]] - np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) /
-         (dm_orig[e[0], e[1]] + np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) for e in edges]
+    c = [abs(np.linalg.norm(data[e[0]] - data[e[1]]) - np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) /
+         (np.linalg.norm(data[e[0]] - data[e[1]]) + np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) for e in edges]
     R_d = 1 - np.mean(c)
     return R_d
 
@@ -59,13 +62,19 @@ def correlation_metric(data, x_2d, n_neighbor, dm=None):
     """
     N = data.shape[0]
     if dm is None:
-        dm = pairwise_distances(data, n_jobs=-1)
-    # creating the adjacency matrix for KNNG (from the average distance matrix "dm")
-    # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
-    neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, metric="precomputed", n_jobs=-1)
-    neigh.fit(dm)
-    # compute the adjacency matrix
-    A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
+        # creating the adjacency matrix for KNNG using the data.
+        # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+        neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, n_jobs=-1)
+        neigh.fit(data)
+        # compute the adjacency matrix
+        A = neigh.kneighbors_graph(data) - identity(N, format="csr")
+    else:
+        # creating the adjacency matrix for KNNG using the provided distance matrix
+        # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+        neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, metric="precomputed", n_jobs=-1)
+        neigh.fit(dm)
+        # compute the adjacency matrix
+        A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
     edges = set([tuple(sorted(x)) for x in zip(find(A)[0], find(A)[1])])
     # original correlations
     corr_orig = [np.inner(data[e[0]], data[e[1]]) / (np.linalg.norm(data[e[0]]) * np.linalg.norm(data[e[1]])) for e in edges]
@@ -100,13 +109,19 @@ def order_preservation(data, angles, n_neighbor, score, dm=None):
     """
     N = data.shape[0]
     if dm is None:
-        dm = pairwise_distances(data, n_jobs=-1)
-    # creating the adjacency matrix for KNNG (from the average distance matrix "dm")
-    # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
-    neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, metric="precomputed", n_jobs=-1)
-    neigh.fit(dm)
-    # compute the adjacency matrix
-    A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
+        # creating the adjacency matrix for KNNG using the data.
+        # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+        neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, n_jobs=-1)
+        neigh.fit(data)
+        # compute the adjacency matrix
+        A = neigh.kneighbors_graph(data) - identity(N, format="csr")
+    else:
+        # creating the adjacency matrix for KNNG using the provided distance matrix
+        # we use n_neighbor+1 in order to exclude a point being nearest neighbor with itself later
+        neigh = NearestNeighbors(n_neighbors=n_neighbor + 1, metric="precomputed", n_jobs=-1)
+        neigh.fit(dm)
+        # compute the adjacency matrix
+        A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
     edges = set([tuple(sorted(x)) for x in zip(find(A)[0], find(A)[1])])
     # cost of order preservation for each pair
     c = [order_check(angles[e[0]], angles[e[1]], score[e[0]], score[e[1]]) for e in edges]
