@@ -65,7 +65,10 @@ class MoDE:
         print("start")
         N = data.shape[0]
         # compute the norm of each point
-        data_norms = np.linalg.norm(data, axis=1)
+        if isinstance(data, csr_matrix):
+            data_norms = scipy.sparse.linalg.norm(data, axis=1)
+        else:
+            data_norms = np.linalg.norm(data, axis=1)
         if 0 in data_norms:
             raise Exception("error: remove zero-norm points")
         if dm_ub is None or dm_lb is None:
@@ -96,7 +99,10 @@ class MoDE:
         c_lb = np.zeros(len(node_indices))
         for i, ind in enumerate(node_indices):
             if dm_ub is None or dm_lb is None:
-                d_lb = distance.euclidean(data[ind[0]], data[ind[1]])
+                if isinstance(data, csr_matrix):
+                    d_lb = scipy.sparse.linalg.norm(data[ind[0]] - data[ind[1]])
+                else:
+                    d_lb = distance.euclidean(data[ind[0]], data[ind[1]])
                 d_ub = d_lb
             else:
                 d_lb = dm_lb[ind[0], ind[1]]

@@ -38,8 +38,12 @@ def distance_metric(data, x_2d, n_neighbor, dm=None):
         A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
     edges = set([tuple(sorted(x)) for x in zip(find(A)[0], find(A)[1])])
     # cost of distance preservation for each pair
-    c = [abs(np.linalg.norm(data[e[0]] - data[e[1]]) - np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) /
-         (np.linalg.norm(data[e[0]] - data[e[1]]) + np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) for e in edges]
+    if isinstance(data, csr_matrix):
+        c = [abs(scipy.sparse.linalg.norm(data[e[0]] - data[e[1]]) - np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) /
+        (scipy.sparse.linalg.norm(data[e[0]] - data[e[1]]) + np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) for e in edges]
+    else:
+        c = [abs(np.linalg.norm(data[e[0]] - data[e[1]]) - np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) /
+        (np.linalg.norm(data[e[0]] - data[e[1]]) + np.linalg.norm(x_2d[e[0]] - x_2d[e[1]])) for e in edges]
     R_d = 1 - np.mean(c)
     return R_d
 
@@ -77,7 +81,10 @@ def correlation_metric(data, x_2d, n_neighbor, dm=None):
         A = neigh.kneighbors_graph(dm) - identity(N, format="csr")
     edges = set([tuple(sorted(x)) for x in zip(find(A)[0], find(A)[1])])
     # original correlations
-    corr_orig = [np.inner(data[e[0]], data[e[1]]) / (np.linalg.norm(data[e[0]]) * np.linalg.norm(data[e[1]])) for e in edges]
+    if isinstance(data, csr_matrix):
+        corr_orig = [data[e[0]].dot(data[e[1]].T).data[0] / (scipy.sparse.linalg.norm(data[e[0]]) * scipy.sparse.linalg.norm(data[e[1]])) for e in edges]
+    else:
+        corr_orig = [np.inner(data[e[0]], data[e[1]]) / (np.linalg.norm(data[e[0]]) * np.linalg.norm(data[e[1]])) for e in edges]
     # embedded data correlations
     corr_emb = [np.inner(x_2d[e[0]], x_2d[e[1]]) / (np.linalg.norm(x_2d[e[0]]) * np.linalg.norm(x_2d[e[1]])) for e in edges]
     # cost of correlation preservation for each pair
