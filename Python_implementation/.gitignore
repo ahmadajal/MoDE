@@ -167,6 +167,7 @@ fastmap.py
 parula_colormap.pkl
 run_MoDE_ndim.py
 compare_embed_methods.ipynb
+benchmark_MoDE.py
 
 # Exclude bash scripts
 src/*.sh
