@@ -8,9 +8,9 @@ import time
 import gc
 import copy
 import scipy.sparse as sparse
-import fastgd.fastgd_base as fastgd_base
-import fastgd.fastgd_cython as fastgd_cython
-import fastgd.fastgd_faster as fastgd_faster
+from .fastgd import fastgd_base
+from .fastgd import fastgd_cython
+from .fastgd import fastgd_faster
 import itertools
 class MoDE:
     def __init__(
