@@ -1,0 +1,35 @@
+[build-system]
+requires = [
+    "numpy>=1.20.3",
+    "scipy>=1.7.1",
+    "scikit-learn>=0.24.2",
+    "Cython>=0.29.24",
+    "setuptools>=61.0",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MoDE_embeddings"
+version = "0.1.4"
+authors = [
+  { name="Ahmad Ajalloeian", email="ajal.ahmad@gmail.com" },
+]
+description = "Source code for Multi-objective n-dimensional embeddings"
+readme = "readme.md"
+requires-python = ">=3.7"
+dependencies = [
+  "numpy>=1.20.3",
+  "scipy>=1.7.1",
+  "scikit-learn>=0.24.2",
+  "matplotlib>=3.4.3",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ahmadajal/MoDE/tree/master/Python_implementation"
+"Bug Tracker" = "https://github.com/ahmadajal/MoDE/issues"
