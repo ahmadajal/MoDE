@@ -11,7 +11,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "MoDE_embeddings"
-version = "0.1.4"
+version = "0.1.5"
 authors = [
   { name="Ahmad Ajalloeian", email="ajal.ahmad@gmail.com" },
 ]
