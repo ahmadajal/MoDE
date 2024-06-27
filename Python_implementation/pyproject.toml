@@ -15,7 +15,7 @@ version = "0.1.4"
 authors = [
   { name="Ahmad Ajalloeian", email="ajal.ahmad@gmail.com" },
 ]
-description = "Source code for Multi-objective n-dimensional embeddings"
+description = "Source code for Multi-objective Data embeddings"
 readme = "readme.md"
 requires-python = ">=3.7"
 dependencies = [
