@@ -1,8 +1,9 @@
-# Python implementation for MoDE
-## Important files
-- "MoDE.py": This file contains the main class that implements MoDE.
-- "metrics.py": This file contains the functions to compute the three metrics introduced in the paper, i.e, distance, correlation, and order preservation metrics.
-- "waterfilling_compression.py": This file contains the implementation of waterfilling algorithm.
+# Python implementation for MoDE (Multi-objective Data Embedding)
+## Description of scripts in `MoDE_embeddings/`
+- __`MoDE.py`__: This file contains the main class that implements MoDE.
+- __`metrics.py`__: This file contains the functions to compute the three metrics introduced in the paper, i.e, distance, correlation, and order preservation metrics.
+- __`waterfilling_compression.py`__: This file contains the implementation of waterfilling algorithm.
+- __`fastgd/`__: This directory contains the fast implementation of the Gradient Decsent algorithm in Cython.
 ## Usage
 __MoDE__ embeddings can be trained on exact or inexact distance matrices. In the case of inexact distance information, ranges of lower and upper bounds on the distances in the form of seperate lower and upper bound distance matrices should be given to the `fit_transform` function. The resulting embeddings are in 2D dimensions and the data points are placed in the embedding space such that samples with higher scores are placed in higher angles (in polar coordinates).
 ```
