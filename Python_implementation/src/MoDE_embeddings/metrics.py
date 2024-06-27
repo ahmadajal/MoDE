@@ -82,7 +82,7 @@ def correlation_metric(data, x_2d, n_neighbor, dm=None):
     edges = set([tuple(sorted(x)) for x in zip(find(A)[0], find(A)[1])])
     # original correlations
     if isinstance(data, csr_matrix):
-        corr_orig = [data[e[0]].dot(data[e[1]].T).data[0] / (scipy.sparse.linalg.norm(data[e[0]]) * scipy.sparse.linalg.norm(data[e[1]])) for e in edges]
+        corr_orig = [data[e[0]].dot(data[e[1]].T).toarray().flatten()[0] / (scipy.sparse.linalg.norm(data[e[0]]) * scipy.sparse.linalg.norm(data[e[1]])) for e in edges]
     else:
         corr_orig = [np.inner(data[e[0]], data[e[1]]) / (np.linalg.norm(data[e[0]]) * np.linalg.norm(data[e[1]])) for e in edges]
     # embedded data correlations
