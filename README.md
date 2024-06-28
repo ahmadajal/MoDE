@@ -5,8 +5,8 @@ This repository contains the code and results for the paper **"An Interpretable 
 Below you may see a nice visualization of the iterations of MoDE that show the convergence of the algorithm for the well-known [S-curve](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_s_curve.html) dataset.
 
 <p align="middle">
-  <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/S_shape_data_org.jpg" width="300" />
-  <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/MoDE_iterations.gif" width="500" /> 
+  <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/figs/S_shape_data_org.jpg" width="300" />
+  <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/figs/MoDE_iterations.gif" width="500" /> 
 </p>
 
 To get a glimpse of the advantages of using MoDE in data visualization, you may watch the conference presentation:
