@@ -14,7 +14,7 @@ To get a glimpse of the advantages of using MoDE in data visualization, you may 
 [![](http://img.youtube.com/vi/WC6ESPrQLXo/0.jpg)](http://www.youtube.com/watch?v=WC6ESPrQLXo "Video Presentation")
 
 ## Usage
-MoDE is implemented in a Python package called [`MoDE_embeddings`](https://pypi.org/project/MoDE-embeddings/). To install this package, sun the following command in a python environment that has pip installed:
+MoDE is implemented in a Python package called [`MoDE_embeddings`](https://pypi.org/project/MoDE-embeddings/). To install this package, run the following command in a python environment that has pip installed:
 ```
 pip install MoDE-embeddings
 ```
