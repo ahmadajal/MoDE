@@ -1,38 +1,64 @@
 # MoDE: Multi-objective-Data-Embedding
 
-This repository contains the code and results for the paper **"An Interpretable Data Embedding under Uncertain Distance Information"**, published at the International Conference on Data Mining (ICDM) in 2020. 
+This repository contains the code and results for the paper **"An Interpretable Data Embedding under Uncertain Distance Information"**, published at the International Conference on Data Mining (ICDM) in 2020.
 
 Below you may see a nice visualization of the iterations of MoDE that show the convergence of the algorithm for the well-known [S-curve](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_s_curve.html) dataset.
 
 <p align="middle">
   <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/figs/S_shape_data_org.jpg" width="300" />
-  <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/figs/MoDE_iterations.gif" width="500" /> 
+  <img src="https://github.com/ahmadajal/MoDE/blob/master/Python_implementation/figs/MoDE_iterations.gif" width="500" />
 </p>
 
 To get a glimpse of the advantages of using MoDE in data visualization, you may watch the conference presentation:
 
 [![](http://img.youtube.com/vi/WC6ESPrQLXo/0.jpg)](http://www.youtube.com/watch?v=WC6ESPrQLXo "Video Presentation")
 
+## Usage
+MoDE is implemented in a Python package called [`MoDE_embeddings`](https://pypi.org/project/MoDE-embeddings/). To install this package, sun the following command in a python environment that has pip installed:
+```
+pip install MoDE-embeddings
+```
+#### Example: Running MoDE on the swiss roll data and computing the distance, correlation and order metrics
 
-# Details
+After installing MoDE embeddings, you can follow the script below to create MoDE embeddings for the swiss roll data:
+```
+from MoDE_embeddings.MoDE import MoDE
+from MoDE_embeddings.metrics import distance_metric, correlation_metric, order_preservation
+from sklearn.datasets import make_swiss_roll
 
-Multi-objective Data Embedding (__MoDE__) is a 2D data embedding that captures, with high fidelity, multiple facets of the data relationships: 
+# Load the swiss roll dataset
+data, score = make_swiss_roll(n_samples=1000, random_state=1)
 
-- correlations, 
-- distances, and, 
-- orders or importance rankings. 
+# Define MoDE embedding class
+mode = MoDE(n_neighbor=20, n_components=2)
+x_2d_mode = mode.fit_transform(data, score)
+# Compute metrics
+R_d = distance_metric(data, x_2d_mode, n_neighbor=20)
+R_c = correlation_metric(data, x_2d_mode, n_neighbor=20)
+R_o = order_preservation(data, mode.P, n_neighbor=20, score=score)
+
+print(f"R_d = {R_d}, R_c = {R_c}, R_o = {R_o}")
+```
+For a full example of comparing MoDE with t-SNE, Isomap, and UMAP in terms of distance and correlation metrics, run the `demo.py` script in the main folder.
+## Details
+
+Multi-objective Data Embedding (__MoDE__) is a 2D data embedding that captures, with high fidelity, multiple facets of the data relationships:
+
+- correlations,
+- distances, and,
+- orders or importance rankings.
 
 An unique characteristic of MoDE is that it does not require exact distances between the objects, like most visualization techniques do. We can give ranges of lower and upper bound distances between objects, which means that MoDE can **effectively visualize compressed or uncertain data**!
 
 Moreover, this embedding method enhances **interpretability** because:
 
-1) It incorporates the ranks or scores of the data samples (if such ranks exist in the dataset) in the resulting embeddings and by placing points with higher scores in higher angles in 2D, provides an interpretable data embedding. 
+1) It incorporates the ranks or scores of the data samples (if such ranks exist in the dataset) in the resulting embeddings and by placing points with higher scores in higher angles in 2D, provides an interpretable data embedding.
 2) The embedding typically results in a "half-moon" visualization of the data. Therefore, the user sees typically a similar visualization of the data so understanding and interpretation is easier. For many other techniques, not only each dataset provides a different visualization outcome, but also different runs of the visualization method may give different visualization results.
 
-In recent work we have also extended __MoDE__ to work not only on 2D, but to project on any dimensionality. 
+In recent work we have also extended __MoDE__ to work not only on 2D, but to project on any dimensionality.
 
-# Useful Links
-- The [conference paper](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/MoDE_ICDM_2020.pdf) at ICDM 2020, and an extended version has been accepted in the [ACM Transactions on Knowledge Discovery from Data (TKDD)](https://dl.acm.org/doi/abs/10.1145/3537901) [2] which includes the extension of MoDE to n-dimensional embeddings. 
+## Useful Links
+- The [conference paper](https://github.com/ahmadajal/Multi-objective-2D-Embeddings/blob/master/MoDE_ICDM_2020.pdf) at ICDM 2020, and an extended version has been accepted in the [ACM Transactions on Knowledge Discovery from Data (TKDD)](https://dl.acm.org/doi/abs/10.1145/3537901) [2] which includes the extension of MoDE to n-dimensional embeddings.
 - Datasets used for the experiments in the paper are [here](https://www.dropbox.com/sh/r5ovlq82ihcpc1j/AAALX__nRzVOShJMfhj35ZJBa?dl=0).
 
 This repository contains both the Python and MATLAB implementations of MoDE. __Note that you can replicate the experimental results in the ICDM paper, using the MATLAB implementation of MoDE.__
